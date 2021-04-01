@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2014-2021 Simon Fraser University
  * Copyright (c) 2000-2021 John Willinsky
- * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class PreprintCrossrefXmlFilter
  * @ingroup plugins_importexport_crossref
@@ -67,7 +67,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 			// Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
 			$publications = array_reverse($publications, true);
 			foreach ($publications as $publication) {
-				if ($publication->getStoredPubId('doi')) {					
+				if ($publication->getStoredPubId('doi')) {
 					$postedContentNode = $this->createPostedContentNode($doc, $publication, $pubObject);
 					$bodyNode->appendChild($postedContentNode);
 				}
@@ -154,7 +154,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 			} else {
 				$personNameNode->setAttribute('sequence', 'additional');
 			}
-			
+
 			$familyNames = $author->getFamilyName(null);
 			$givenNames = $author->getGivenName(null);
 
