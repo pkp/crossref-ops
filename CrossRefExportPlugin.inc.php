@@ -13,8 +13,6 @@
  * @brief CrossRef/MEDLINE XML metadata export plugin
  */
 
-import('classes.plugins.DOIPubIdExportPlugin');
-
 // The status of the Crossref DOI.
 // any, notDeposited, and markedRegistered are reserved
 define('CROSSREF_STATUS_FAILED', 'failed');
@@ -33,6 +31,8 @@ define('CROSSREF_API_STATUS_URL_DEV', 'https://test.crossref.org/servlet/submiss
 // The name of the setting used to save the registered DOI and the URL with the deposit status.
 define('CROSSREF_DEPOSIT_STATUS', 'depositStatus');
 
+use PKP\file\FileManager;
+use APP\plugins\DOIPubIdExportPlugin;
 
 class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 
@@ -193,7 +193,6 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 		$context = $request->getContext();
 		$path = array('plugin', $this->getName());
 
-		import('lib.pkp.classes.file.FileManager');
 		$fileManager = new FileManager();
 		$resultErrors = array();
 
@@ -283,7 +282,6 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 		$objectsFileNamePart = 'preprints';
 		$noValidation = null;
 
-		import('lib.pkp.classes.file.FileManager');
 		$fileManager = new FileManager();
 		$resultErrors = array();
 		$errorsOccured = false;
@@ -499,7 +497,6 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 				break;
 			case 'register':
 				PluginRegistry::loadCategory('generic', true, $context->getId());
-				import('lib.pkp.classes.file.FileManager');
 				$fileManager = new FileManager();
 				$resultErrors = array();
 				// Errors occured will be accessible via the status link
