@@ -13,6 +13,8 @@
  * @brief Class that converts a Preprint to a Crossref XML document.
  */
 
+use PKP\submission\PKPSubmission;
+
 import('lib.pkp.plugins.importexport.native.filter.NativeExportFilter');
 
 class PreprintCrossrefXmlFilter extends NativeExportFilter {
@@ -67,7 +69,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 			// Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
 			$publications = array_reverse($publications, true);
 			foreach ($publications as $publication) {
-				if ($publication->getStoredPubId('doi')) {
+				if ($publication->getStoredPubId('doi') && $publication->getData('status') === PKPSubmission::STATUS_PUBLISHED) {
 					$postedContentNode = $this->createPostedContentNode($doc, $publication, $pubObject);
 					$bodyNode->appendChild($postedContentNode);
 				}
