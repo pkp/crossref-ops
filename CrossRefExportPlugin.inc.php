@@ -13,6 +13,11 @@
  * @brief CrossRef/MEDLINE XML metadata export plugin
  */
 
+use APP\core\Application;
+use APP\facades\Repo;
+use APP\plugins\DOIPubIdExportPlugin;
+use PKP\file\FileManager;
+
 // The status of the Crossref DOI.
 // any, notDeposited, and markedRegistered are reserved
 define('CROSSREF_STATUS_FAILED', 'failed');
@@ -30,9 +35,6 @@ define('CROSSREF_API_STATUS_URL_DEV', 'https://test.crossref.org/servlet/submiss
 
 // The name of the setting used to save the registered DOI and the URL with the deposit status.
 define('CROSSREF_DEPOSIT_STATUS', 'depositStatus');
-
-use PKP\file\FileManager;
-use APP\plugins\DOIPubIdExportPlugin;
 
 class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 
@@ -108,8 +110,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 		// if the failure occured on request and the message was saved
 		// return that message
 		$submissionId = $request->getUserVar('submissionId');
-		$submissionDao = DAORegistry::getDAO('SubmissionDAO');
-		$preprint = $submissionDao->getById($submissionId);
+		$preprint = Repo::submission()->get($submissionId);
 		$failedMsg = $preprint->getData($this->getFailedMsgSettingName());
 		if (!empty($failedMsg)) {
 			return $failedMsg;
@@ -275,7 +276,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin {
 	function depositOnPublish($hookName, $args) {
 		error_log("depositOnPublish");
 		$newPublication = $args[0];
-		$objects[] = Services::get('submission')->get($newPublication->getData('submissionId'));
+		$objects[] = Repo::submission()->get($newPublication->getData('submissionId'));
 		$request = Application::get()->getRequest();
 		$context = $request->getContext();
 		$filter = $this->getSubmissionFilter();
