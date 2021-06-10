@@ -13,6 +13,10 @@
  * @brief Form for server managers to setup CrossRef plugin
  */
 
+use PKP\form\validation\FormValidator;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorEmail;
+use PKP\form\validation\FormValidatorPost;
 
 import('lib.pkp.classes.form.Form');
 
