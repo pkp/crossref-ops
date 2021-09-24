@@ -13,6 +13,9 @@
  * @brief Form for server managers to setup CrossRef plugin
  */
 
+use PKP\form\Form;
+use PKP\linkAction\request\AjaxModal;
+use PKP\linkAction\LinkAction;
 use PKP\form\validation\FormValidator;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorEmail;
