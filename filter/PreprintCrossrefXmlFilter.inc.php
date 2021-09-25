@@ -65,7 +65,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 		$rootNode->appendChild($bodyNode);
 
 		foreach($pubObjects as $pubObject) {
-			$publications = $pubObject->getData('publications');
+			$publications = $pubObject->getData('publications')->toArray();
 			// Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
 			$publications = array_reverse($publications, true);
 			foreach ($publications as $publication) {
@@ -208,6 +208,13 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 
 		// Posted date
 		$postedContentNode->appendChild($this->createPostedDateNode($doc, $publication->getData('datePublished')));
+
+		// abstract
+		if ($abstract = $publication->getData('abstract', $locale)) {
+			$abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
+			$abstractNode->appendChild($node = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
+			$postedContentNode->appendChild($abstractNode);
+		}
 
 		// license
 		if ($publication->getData('licenseUrl')) {
