@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @file plugins/importexport/crossref/filter/PreprintCrossrefXmlFilter.inc.php
+ * @file plugins/generic/crossref/filter/PreprintCrossrefXmlFilter.inc.php
  *
  * Copyright (c) 2014-2021 Simon Fraser University
  * Copyright (c) 2000-2021 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class PreprintCrossrefXmlFilter
- * @ingroup plugins_importexport_crossref
+ * @ingroup plugins_generic_crossref
  *
  * @brief Class that converts a Preprint to a Crossref XML document.
  */
@@ -34,7 +34,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 	 * @copydoc PersistableFilter::getClassName()
 	 */
 	function getClassName() {
-		return 'plugins.importexport.crossref.filter.PreprintCrossrefXmlFilter';
+		return 'plugins.generic.crossref.filter.PreprintCrossrefXmlFilter';
 	}
 
 	//
@@ -69,7 +69,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 			// Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
 			$publications = array_reverse($publications, true);
 			foreach ($publications as $publication) {
-				if ($publication->getStoredPubId('doi') && $publication->getData('status') === PKPSubmission::STATUS_PUBLISHED) {
+				if ($publication->getDoi() && $publication->getData('status') === PKPSubmission::STATUS_PUBLISHED) {
 					$postedContentNode = $this->createPostedContentNode($doc, $publication, $pubObject);
 					$bodyNode->appendChild($postedContentNode);
 				}
@@ -225,12 +225,14 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 		}
 
 		// DOI relations
-		if ($submission->getLatestPublication()->getStoredPubId('doi') && $submission->getLatestPublication()->getStoredPubId('doi') != $publication->getStoredPubId('doi')){
-			$postedContentNode->appendChild($this->createRelationsDataNode($doc, $submission->getLatestPublication()->getStoredPubId('doi')));
+		if ($submission->getLatestPublication()->getDoi() && $submission->getLatestPublication()->getDoi() != $publication->getDoi()){
+			$postedContentNode->appendChild($this->createRelationsDataNode($doc, $submission->getLatestPublication()->getDoi()));
 		}
 
 		// DOI data
-		$postedContentNode->appendChild($this->createDOIDataNode($doc, $publication->getStoredPubId('doi'), $request->getDispatcher()->url($request, PKPApplication::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getBestId(), 'version', $publication->getId()], null, null, true)));
+        $dispatcher = $this->_getDispatcher($request);
+        $url = $dispatcher->url($request, PKPApplication::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getBestId(), 'version', $publication->getId()], null, null, true);
+		$postedContentNode->appendChild($this->createDOIDataNode($doc, $publication->getDoi(), $url));
 
 		return $postedContentNode;
 	}
@@ -290,6 +292,23 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 
 		return $relationsDataNode;
 	}
+
+    /**
+     * Helper to ensure dispatcher is available even when called from CLI tools
+     *
+     * @param \APP\core\Request $request
+     *
+     * @return \PKP\core\Dispatcher
+     */
+    protected function _getDispatcher(\APP\core\Request $request): \PKP\core\Dispatcher
+    {
+        $dispatcher = $request->getDispatcher();
+        if ($dispatcher === null) {
+            $dispatcher = \APP\core\Application::get()->getDispatcher();
+        }
+
+        return $dispatcher;
+    }
 }
 
 

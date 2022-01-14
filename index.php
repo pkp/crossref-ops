@@ -11,13 +11,13 @@
  * Copyright (c) 2003-2021 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
- * @ingroup plugins_importexport_crossref
- * @brief Wrapper for CrossRef plugin.
+ * @ingroup plugins_generic_crossref
+ * @brief Wrapper for Crossref plugin.
  *
  */
 
-require_once('CrossRefExportPlugin.inc.php');
+require_once('CrossrefPlugin.inc.php');
 
-return new CrossRefExportPlugin();
+return new CrossrefPlugin();
 
 

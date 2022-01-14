@@ -14,6 +14,20 @@
 		$('#crossrefSettingsForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
 	{rdelim});
 </script>
+
+<div class="pkp_notification" id="crossrefConfigurationErrors">
+	{foreach from=$configurationErrors item=configurationError}
+		{if $configurationError == $smarty.const.DOI_EXPORT_CONFIG_ERROR_DOIPREFIX}
+			{include file="controllers/notification/inPlaceNotificationContent.tpl" notificationId=crossrefConfigurationErrors notificationStyleClass="notifyWarning" notificationTitle="plugins.importexport.common.missingRequirements"|translate notificationContents="plugins.importexport.common.error.DOIsNotAvailable"|translate}
+		{elseif $configurationError == $smarty.const.EXPORT_CONFIG_ERROR_SETTINGS}
+			{include file="controllers/notification/inPlaceNotificationContent.tpl" notificationId=crossrefConfigurationErrors notificationStyleClass="notifyWarning" notificationTitle="plugins.importexport.common.missingRequirements"|translate notificationContents="plugins.importexport.common.error.pluginNotConfigured"|translate}
+		{/if}
+	{/foreach}
+	{if !$currentContext->isDoiTypeEnabled('publication')}
+		{include file="controllers/notification/inPlaceNotificationContent.tpl" notificationId=crossrefConfigurationErrors notificationStyleClass="notifyWarning" notificationTitle="plugins.importexport.common.missingRequirements"|translate notificationContents="plugins.importexport.crossref.error.noDOIContentObjects"|translate}
+	{/if}
+</div>
+
 <form class="pkp_form" id="crossrefSettingsForm" method="post" action="{url router=PKPApplication::ROUTE_COMPONENT op="manage" plugin="CrossRefExportPlugin" category="importexport" verb="save"}">
 	{csrf}
 	{if $doiPluginSettingsLinkAction}
