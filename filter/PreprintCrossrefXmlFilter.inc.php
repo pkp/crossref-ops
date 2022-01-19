@@ -65,7 +65,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 		$rootNode->appendChild($bodyNode);
 
 		foreach($pubObjects as $pubObject) {
-			$publications = $pubObject->getData('publications')->toArray();
+			$publications = $pubObject->getData('publications');
 			// Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
 			$publications = array_reverse($publications, true);
 			foreach ($publications as $publication) {
