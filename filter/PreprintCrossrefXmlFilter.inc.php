@@ -13,6 +13,7 @@
  * @brief Class that converts a Preprint to a Crossref XML document.
  */
 
+use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
 
 import('lib.pkp.plugins.importexport.native.filter.NativeExportFilter');
@@ -162,7 +163,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 
 			// Check if both givenName and familyName is set for the submission language.
 			if (isset($familyNames[$locale]) && isset($givenNames[$locale])) {
-				$personNameNode->setAttribute('language', PKPLocale::getIso1FromLocale($locale));
+				$personNameNode->setAttribute('language', LocaleConversion::getIso1FromLocale($locale));
 				$personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
 				$personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyNames[$locale]), ENT_COMPAT, 'UTF-8')));
 
@@ -177,7 +178,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter {
 						}
 
 						$nameNode = $doc->createElementNS($deployment->getNamespace(), 'name');
-						$nameNode->setAttribute('language', PKPLocale::getIso1FromLocale($otherLocal));
+						$nameNode->setAttribute('language', LocaleConversion::getIso1FromLocale($otherLocal));
 
 						$nameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyName), ENT_COMPAT, 'UTF-8')));
 						if (isset($givenNames[$otherLocal]) && !empty($givenNames[$otherLocal])) {
