@@ -14,15 +14,17 @@
  *
  */
 
+use APP\core\Application;
 use APP\facades\Repo;
 use APP\plugins\IDoiRegistrationAgency;
+use PKP\config\Config;
 use PKP\context\Context;
 use PKP\core\JSONMessage;
-use PKP\form\Form;
+use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
-
-import('lib.pkp.classes.plugins.GenericPlugin');
-
+use PKP\plugins\GenericPlugin;
+use PKP\plugins\HookRegistry;
+use PKP\plugins\PluginRegistry;
 
 class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 {
@@ -328,12 +330,9 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     }
 
     /**
-     * @param Context $context
-     * @param Form|null $form
-     *
-     * @return array
+     * @return int[]
      */
-    private function _getConfigurationErrors(Context $context, Form $form = null): array
+    private function _getConfigurationErrors(Context $context, CrossRefSettingsForm $form = null): array
     {
         $configurationErrors = [];
 
