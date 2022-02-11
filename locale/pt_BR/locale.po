@@ -1,2 +1,145 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2022-02-13 14:26+0000\n"
+"Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/"
+"plugins/ops-crossref-importexport-plugin/pt_BR/>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "Insira o nome de usuário que você recebeu da CrossRef."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
+msgstr "Insira o e-mail do depositante."
+
+msgid "plugins.importexport.crossref.export.error.preprintNotFound"
+msgstr ""
+"Nenhum preprint correspondeu ao ID de preprint especificado \"{$preprintId}\""
+"."
+
+msgid "plugins.importexport.crossref.export.error.issueNotFound"
+msgstr "Nenhum edição corresponde ao ID da edição especificado \"{$issueId}\"."
+
+msgid "plugins.importexport.crossref.register.success.warning"
+msgstr ""
+"O registro foi realizado com sucesso, mas ocorreu o seguinte aviso: "
+"'{$param}'."
+
+msgid "plugins.importexport.crossref.register.error.mdsError"
+msgstr ""
+"O registro não foi totalmente bem-sucedido!O servidor de registro do DOI "
+"retornou um erro."
+
+msgid "plugins.importexport.crossref.cliUsage"
+msgstr ""
+"Uso:\n"
+"{$scriptName} {$pluginName} export [xmlFileName] [server_path] preprints "
+"objectId1 [objectId2] ...\n"
+"{$scriptName} {$pluginName} registrar [server_path] preprints objectId1 "
+"[objectId2] ...\n"
+
+msgid "plugins.importexport.crossref.senderTask.name"
+msgstr "Tarefa de registro automático da CrossRef"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "Marcar ativo"
+
+msgid "plugins.importexport.crossref.action.export"
+msgstr "Baixar XML"
+
+msgid "plugins.importexport.crossref.statusLegend"
+msgstr ""
+"\n"
+"\t\t<p>Status do depósito:</p>\n"
+"\t\t<p>\n"
+"\t\t- Não depositado: nenhuma tentativa de depósito foi feita para este DOI.<"
+"br />\n"
+"\t\t- Ativo: o DOI foi depositado e está resolvendo corretamente.<br />\n"
+"\t\t- Falhou: o depósito do DOI falhou.<br />\n"
+"\t\t- Marcado como ativo: o DOI foi marcado manualmente como ativo.\n"
+"\t\t</p>\n"
+"\t\t<p>Apenas o status da última tentativa de depósito é exibido.</p>\n"
+"\t\t<p>Se um depósito falhou, resolva o problema e tente registrar o DOI "
+"novamente.</p>"
+
+msgid "plugins.importexport.crossref.action.register"
+msgstr "Depósito"
+
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "Marcado como ativo"
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "Ativo"
+
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Falhou"
+
+msgid "plugins.importexport.crossref.issues.description"
+msgstr ""
+"Nota: Somente edições (e não para seus preprints) serão consideradas para "
+"exportação/registro aqui."
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Valide o XML. Use esta opção para o download do XML para o registro manual "
+"do DOI."
+
+msgid "plugins.importexport.crossref.settings.form.testMode.description"
+msgstr ""
+"Use a API de teste CrossRef (ambiente de teste) para o depósito DOI. Por "
+"favor, não se esqueça de remover esta opção para a produção."
+
+msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
+msgstr ""
+"OPS depositará os DOIs atribuídos automaticamente à CrossRef. Observe que "
+"isso pode levar um curto período de tempo após a publicação para ser "
+"processado (por exemplo, dependendo da configuração do cronjob). Você pode "
+"verificar todos os DOIs não registrados."
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "Nome do usuário"
+
+msgid "plugins.importexport.crossref.registrationIntro"
+msgstr ""
+"Se você quiser usar este plugin para registrar Digital Object Identifier "
+"(DOIs) diretamente com o CrossRef, você precisará de um nome de usuário e "
+"senha (disponíveis em <a href=\"http://www.crossref.org\" target=\"_blank\"> "
+"CrossRef</a>) para fazer isso. Se você não tiver seu próprio nome de usuário "
+"e senha, ainda poderá exportar para o formato XML do CrossRef, mas não "
+"poderá registrar seus DOIs no CrossRef a partir do OMP."
+
+msgid "plugins.importexport.crossref.settings.form.depositorNameRequired"
+msgstr "Insira o nome do depositante."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail"
+msgstr "E-mail do depositante"
+
+msgid "plugins.importexport.crossref.settings.form.depositorName"
+msgstr "Nome do depositante"
+
+msgid "plugins.importexport.crossref.settings.depositorIntro"
+msgstr ""
+"Os seguintes itens são necessários para um depósito CrossRef bem sucedido."
+
+msgid "plugins.importexport.crossref.error.noDOIContentObjects"
+msgstr ""
+"Os preprints não são selecionadas para DOI no plug-in de identificador "
+"público, portanto, não estão disponíveis para depósito ou exportação neste "
+"plug-in."
+
+msgid "plugins.importexport.crossref.requirements.satisfied"
+msgstr "Todos os requisitos do plug-in são atendidos."
+
+msgid "plugins.importexport.crossref.requirements"
+msgstr "Requisitos"
+
+msgid "plugins.importexport.crossref.description"
+msgstr "Exportar metadados de preprint no formato XML CrossRef."
+
+msgid "plugins.importexport.crossref.displayName"
+msgstr "Exportação CrossRef em XML"
