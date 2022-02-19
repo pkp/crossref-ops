@@ -16,8 +16,6 @@
  *
  */
 
-require_once('CrossrefPlugin.inc.php');
+require_once 'CrossrefPlugin.inc.php';
 
 return new CrossrefPlugin();
-
-
