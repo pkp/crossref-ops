@@ -214,7 +214,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
             return false;
         }
 
-        if (!in_array(Repo::doi()::TYPE_PUBLICATION, $context->getData(Context::SETTING_ENABLED_DOI_TYPES))) {
+        if (!in_array(Repo::doi()::TYPE_PUBLICATION, $context->getData(Context::SETTING_ENABLED_DOI_TYPES) ?? [])) {
             return false;
         }
         return true;
