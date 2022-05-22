@@ -246,8 +246,17 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
         // DOI relations: if this version has a vorDoi or different DOI than the current publication (ie. versions and DOI versioning exits), add a relation node
         $parentDoi = $submission->getCurrentPublication()->getDoi() && $submission->getCurrentPublication()->getDoi() != $publication->getDoi() ? $submission->getCurrentPublication()->getDoi() : '';
         $vorDoi = $publication->getData('vorDoi') ? $publication->getData('vorDoi') : '';
+
         if ($parentDoi || $vorDoi) {
-            $postedContentNode->appendChild($this->createRelationsDataNode($doc, $parentDoi, $vorDoi));
+            $relationsDataNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:program');
+            $relationsDataNode->setAttribute('name', 'relations');
+            if ($parentDoi) {
+                $relationsDataNode->appendChild($this->createParentDoiNode($doc, $parentDoi));
+            }
+            if ($vorDoi) {
+                $relationsDataNode->appendChild($this->createVorDoiNode($doc, $vorDoi));
+            }
+            $postedContentNode->appendChild($relationsDataNode);
         }
 
         // DOI data
@@ -300,38 +309,43 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     }
 
     /**
-     * Create and return the 'program' node for DOI relations.
+     * Create and return the parent DOI relation node.
      *
      * @param $doc DOMDocument
      * @param $parentDoi string
+     *
+     * @return DOMElement
+     */
+    public function createParentDoiNode($doc, $parentDoi)
+    {
+        $deployment = $this->getDeployment();
+        $parentDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
+        $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
+        $intraWorkRelationNode->setAttribute('relationship-type', 'isVersionOf');
+        $intraWorkRelationNode->setAttribute('identifier-type', 'doi');
+        $parentDoiNode->appendChild($intraWorkRelationNode);
+
+        return $parentDoiNode;
+    }
+
+    /**
+     * Create and return the VOR DOI relation node.
+     *
+     * @param $doc DOMDocument
      * @param $vorDoi string
      *
      * @return DOMElement
      */
-    public function createRelationsDataNode($doc, $parentDoi, $vorDoi)
+    public function createVorDoiNode($doc, $vorDoi)
     {
         $deployment = $this->getDeployment();
-        $relationsDataNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:program');
-        $relationsDataNode->setAttribute('name', 'relations');
+        $vorDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
+        $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));
+        $intraWorkRelationNode->setAttribute('relationship-type', 'isPreprintOf');
+        $intraWorkRelationNode->setAttribute('identifier-type', 'doi');
+        $vorDoiNode->appendChild($intraWorkRelationNode);
 
-        if ($parentDoi) {
-            $relatedItemNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
-            $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
-            $intraWorkRelationNode->setAttribute('relationship-type', 'isVersionOf');
-            $intraWorkRelationNode->setAttribute('identifier-type', 'doi');
-            $relatedItemNode->appendChild($intraWorkRelationNode);
-            $relationsDataNode->appendChild($relatedItemNode);
-        }
-        if ($vorDoi) {
-            $relatedItemNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
-            $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));
-            $intraWorkRelationNode->setAttribute('relationship-type', 'isPreprintOf');
-            $intraWorkRelationNode->setAttribute('identifier-type', 'doi');
-            $relatedItemNode->appendChild($intraWorkRelationNode);
-            $relationsDataNode->appendChild($relatedItemNode);
-        }
-
-        return $relationsDataNode;
+        return $vorDoiNode;
     }
 
     /**
