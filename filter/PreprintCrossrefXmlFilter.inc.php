@@ -73,12 +73,15 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
         $bodyNode = $doc->createElementNS($deployment->getNamespace(), 'body');
         $rootNode->appendChild($bodyNode);
 
+        // Loop through all submissions
         foreach ($pubObjects as $pubObject) {
-            $publications = $pubObject->getData('publications')->toArray();
-            // Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
-            $publications = array_reverse($publications, true);
+            // Always include the current publication
+            $postedContentNode = $this->createPostedContentNode($doc, $pubObject->getCurrentPublication(), $pubObject);
+            $bodyNode->appendChild($postedContentNode);
+            // Loop through other publications in case other DOI's exist
+            $publications = array_reverse($pubObject->getPublishedPublications());
             foreach ($publications as $publication) {
-                if ($publication->getDoi() && $publication->getData('status') === PKPSubmission::STATUS_PUBLISHED) {
+                if ($publication->getDoi() && $publication->getDoi() !== $pubObject->getCurrentPublication()->getDoi()) {
                     $postedContentNode = $this->createPostedContentNode($doc, $publication, $pubObject);
                     $bodyNode->appendChild($postedContentNode);
                 }
@@ -259,9 +262,13 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
             $postedContentNode->appendChild($relationsDataNode);
         }
 
-        // DOI data
+        // DOI data:  for the current publication use default landing page URL, for other versions use a version specific URL, see https://github.com/pkp/pkp-lib/issues/7222
         $dispatcher = $this->_getDispatcher($request);
-        $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getBestId(), 'version', $publication->getId()], null, null, true);
+        if ($submission->getCurrentPublication()->getId() === $publication->getId()) {
+            $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', $submission->getBestId());
+        } else {
+            $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getBestId(), 'version', $publication->getId()], null, null, true);
+        }
         $postedContentNode->appendChild($this->createDOIDataNode($doc, $publication->getDoi(), $url));
 
         return $postedContentNode;
