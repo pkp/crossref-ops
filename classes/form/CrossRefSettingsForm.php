@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file plugins/importexport/crossref/classes/form/CrossRefSettingsForm.php
+ * @file plugins/generic/crossref/classes/form/CrossRefSettingsForm.php
  *
  * Copyright (c) 2014-2022 Simon Fraser University
  * Copyright (c) 2003-2022 John Willinsky
@@ -11,7 +11,7 @@
  * @brief Form for server managers to setup CrossRef plugin
  */
 
-namespace APP\plugins\importexport\crossref\classes\form;
+namespace APP\plugins\generic\crossref\classes\form;
 
 use APP\core\Application;
 use PKP\form\Form;
