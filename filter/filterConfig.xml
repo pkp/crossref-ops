@@ -24,7 +24,7 @@
 		<!-- Crossref XML preprint output -->
 		<filter
 			inGroup="preprint=>crossref-xml"
-			class="plugins.generic.crossref.filter.PreprintCrossrefXmlFilter"
+			class="APP\plugins\generic\crossref\filter\PreprintCrossrefXmlFilter"
 			isTemplate="0" />
 	</filters>
 </filterConfig>

@@ -1,18 +1,18 @@
 <?php
 
 /**
- * @file plugins/generic/crossref/CrossRefPlugin.inc.php
+ * @file plugins/generic/crossref/CrossRefPlugin.php
  *
- * Copyright (c) 2014-2021 Simon Fraser University
- * Copyright (c) 2003-2021 John Willinsky
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
- * @package plugins.generic.crossRefPlugin
  * @class CrossRefPlugin
- *
- * Plugin to let managers deposit DOIs and metadata to Crossref
+ * @brief Plugin to let managers deposit DOIs and metadata to Crossref
  *
  */
+
+namespace APP\plugins\generic\crossref;
 
 use APP\core\Application;
 use APP\facades\Repo;
@@ -88,7 +88,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      */
     private function _pluginInitialization()
     {
-        $this->import('CrossRefExportPlugin');
         PluginRegistry::register('importexport', new CrossRefExportPlugin(), $this->getPluginPath());
 
         HookRegistry::register('Template::doiManagement', array($this, 'callbackShowDoiManagementTabs'));
@@ -102,8 +101,8 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     /**
      * Extend the website settings tabs to include static pages
      *
-     * @param $hookName string The name of the invoked hook
-     * @param $args array Hook parameters
+     * @param string $hookName The name of the invoked hook
+     * @param array $args Hook parameters
      * @return boolean Hook handling status
      */
     public function callbackShowDoiManagementTabs($hookName, $args)
@@ -152,10 +151,10 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     }
 
     /**
-	 * @inheritDoc
-	 */
-	public function exportSubmissions(array $submissions, Context $context): array
-	{
+     * @inheritDoc
+     */
+    public function exportSubmissions(array $submissions, Context $context): array
+    {
         // Get filter and set objectsFileNamePart (see: PubObjectsExportPlugin::prepareAndExportPubObjects)
         $exportPlugin = $this->_getExportPlugin();
         $filterName = $exportPlugin->getSubmissionFilter();
@@ -163,13 +162,13 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 
         $temporaryFileId =  $exportPlugin->exportAsDownload($context, $submissions, $filterName, 'preprints', null, $xmlErrors);
         return ['temporaryFileId' => $temporaryFileId, 'xmlErrors' => $xmlErrors];
-	}
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function depositSubmissions(array $submissions, Context $context): array
-	{
+    /**
+     * @inheritDoc
+     */
+    public function depositSubmissions(array $submissions, Context $context): array
+    {
         $exportPlugin = $this->_getExportPlugin();
         $filterName = $exportPlugin->getSubmissionFilter();
         $responseMessage = '';
@@ -179,7 +178,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
             'hasErrors' => !$status,
             'responseMessage' => $responseMessage
         ];
-	}
+    }
 
     /**
      * Includes plugin in list of configurable registration agencies for DOI depositing functionality
@@ -189,14 +188,14 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      *      @option $enabledRegistrationAgencies array
      * ]
      */
-	public function addAsRegistrationAgencyOption(string $hookName, array $args)
-	{
+    public function addAsRegistrationAgencyOption(string $hookName, array $args)
+    {
         $enabledRegistrationAgencies = &$args[0];
         $enabledRegistrationAgencies[] = [
             'value' => $this->getName(),
             'label' => 'Crossref'
         ];
-	}
+    }
 
     /**
      * Checks if plugin meets registration agency-specific requirements for being active and handling deposits
@@ -204,10 +203,9 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      * @param Context $context
      * @return bool
      */
-	public function isPluginConfigured(Context $context): bool
-	{
-        $this->import('classes.form.CrossRefSettingsForm');
-        $form = new CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
+    public function isPluginConfigured(Context $context): bool
+    {
+        $form = new classes\form\CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
         $configurationErrors = $this->_getConfigurationErrors($context, $form);
 
         if (!empty($configurationErrors)) {
@@ -218,7 +216,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
             return false;
         }
         return true;
-	}
+    }
 
     /**
      * Get configured registration agency display name for use in DOI management pages
@@ -229,21 +227,21 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
         return __('plugins.generic.crossref.registrationAgency.name');
     }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getErrorMessageKey(): ?string
-	{
+    /**
+     * @inheritDoc
+     */
+    public function getErrorMessageKey(): ?string
+    {
         return $this->_getFailedMsgSettingName();
-	}
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getRegisteredMessageKey(): ?string
-	{
+    /**
+     * @inheritDoc
+     */
+    public function getRegisteredMessageKey(): ?string
+    {
         return null;
-	}
+    }
 
     /**
      * Adds Crossref specific info to Repo::doi()->markRegistered()
@@ -295,8 +293,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
             case 'settings':
                 $context = $request->getContext();
 
-                $this->import('classes.form.CrossRefSettingsForm');
-                $form = new CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
+                $form = new classes\form\CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
                 $form->initData();
 
                 // Check for configuration errors

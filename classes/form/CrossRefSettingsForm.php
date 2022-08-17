@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @file plugins/importexport/crossref/classes/form/CrossRefSettingsForm.inc.php
+ * @file plugins/importexport/crossref/classes/form/CrossRefSettingsForm.php
  *
- * Copyright (c) 2014-2021 Simon Fraser University
- * Copyright (c) 2003-2021 John Willinsky
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class CrossRefSettingsForm
- * @ingroup plugins_importexport_crossref
- *
  * @brief Form for server managers to setup CrossRef plugin
  */
+
+namespace APP\plugins\importexport\crossref\classes\form;
 
 use APP\core\Application;
 use PKP\form\Form;
@@ -41,7 +41,7 @@ class CrossRefSettingsForm extends Form
         return $this->_contextId;
     }
 
-    /** @var CrossRefExportPlugin */
+    /** @var \PKP\plugins\Plugin */
     public $_plugin;
 
     /**
@@ -77,7 +77,6 @@ class CrossRefSettingsForm extends Form
             $application = Application::get();
             $request = $application->getRequest();
             $dispatcher = $application->getDispatcher();
-            import('lib.pkp.classes.linkAction.request.AjaxModal');
             $doiPluginSettingsLinkAction = new LinkAction(
                 'settings',
                 new AjaxModal(

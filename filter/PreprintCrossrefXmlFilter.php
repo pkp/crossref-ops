@@ -1,30 +1,28 @@
 <?php
 
 /**
- * @file plugins/generic/crossref/filter/PreprintCrossrefXmlFilter.inc.php
+ * @file plugins/generic/crossref/filter/PreprintCrossrefXmlFilter.php
  *
- * Copyright (c) 2014-2021 Simon Fraser University
- * Copyright (c) 2000-2021 John Willinsky
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2000-2022 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class PreprintCrossrefXmlFilter
- * @ingroup plugins_generic_crossref
- *
  * @brief Class that converts a Preprint to a Crossref XML document.
  */
+
+namespace APP\plugins\generic\crossref\filter;
 
 use APP\core\Application;
 use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
 
-import('lib.pkp.plugins.importexport.native.filter.NativeExportFilter');
-
-class PreprintCrossrefXmlFilter extends NativeExportFilter
+class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\NativeExportFilter
 {
     /**
      * Constructor
      *
-     * @param $filterGroup FilterGroup
+     * @param \PKP\filter\FilterGroup $filterGroup
      */
     public function __construct($filterGroup)
     {
@@ -40,7 +38,7 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
      */
     public function getClassName()
     {
-        return 'plugins.generic.crossref.filter.PreprintCrossrefXmlFilter';
+        return (string) self::class;
     }
 
     //
@@ -49,14 +47,13 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * @see Filter::process()
      *
-     * @param $pubObjects array Array of Issues or Submissions
-     *
-     * @return DOMDocument
+     * @param array $pubObjects array Array of Issues or Submissions
+     * @return \DOMDocument
      */
     public function &process(&$pubObjects)
     {
         // Create the XML document
-        $doc = new DOMDocument('1.0', 'utf-8');
+        $doc = new \DOMDocument('1.0', 'utf-8');
         $doc->preserveWhiteSpace = false;
         $doc->formatOutput = true;
         $deployment = $this->getDeployment();
@@ -94,9 +91,9 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the root node 'doi_batch'.
      *
-     * @param $doc DOMDocument
+     * @param \DOMDocument $doc
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createRootNode($doc)
     {
@@ -114,9 +111,9 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the head node 'head'.
      *
-     * @param $doc DOMDocument
+     * @param \DOMDocument $doc
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createHeadNode($doc)
     {
@@ -146,9 +143,9 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the posted content node 'posted_content'.
      *
-     * @param $doc DOMDocument
+     * @param \DOMDocument $doc
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createPostedContentNode($doc, $publication, $submission)
     {
@@ -270,10 +267,10 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the posted date node 'posted_date'.
      *
-     * @param $doc DOMDocument
-     * @param $objectPostedDate string
+     * @param \DOMDocument $doc
+     * @param string $objectPostedDate
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createPostedDateNode($doc, $objectPostedDate)
     {
@@ -293,11 +290,11 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the DOI data node 'doi_data'.
      *
-     * @param $doc DOMDocument
-     * @param $doi string
-     * @param $url string
+     * @param \DOMDocument $doc
+     * @param string $doi
+     * @param string $url
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createDOIDataNode($doc, $doi, $url)
     {
@@ -311,10 +308,10 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the parent DOI relation node.
      *
-     * @param $doc DOMDocument
-     * @param $parentDoi string
+     * @param \DOMDocument $doc
+     * @param string $parentDoi
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createParentDoiNode($doc, $parentDoi)
     {
@@ -331,10 +328,10 @@ class PreprintCrossrefXmlFilter extends NativeExportFilter
     /**
      * Create and return the VOR DOI relation node.
      *
-     * @param $doc DOMDocument
-     * @param $vorDoi string
+     * @param \DOMDocument $doc
+     * @param string $vorDoi
      *
-     * @return DOMElement
+     * @return \DOMElement
      */
     public function createVorDoiNode($doc, $vorDoi)
     {

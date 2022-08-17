@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @file plugins/generic/crossref/CrossRefExportPlugin.inc.php
+ * @file plugins/generic/crossref/CrossRefExportPlugin.php
  *
- * Copyright (c) 2014-2021 Simon Fraser University
- * Copyright (c) 2003-2021 John Willinsky
+ * Copyright (c) 2014-2022 Simon Fraser University
+ * Copyright (c) 2003-2022 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class CrossRefExportPlugin
- * @ingroup plugins_generic_crossref
- *
  * @brief CrossRef/MEDLINE XML metadata export plugin
  */
+
+namespace APP\plugins\generic\crossref;
 
 use APP\core\Application;
 use APP\facades\Repo;
@@ -155,7 +155,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
      */
     public function getSettingsFormClassName()
     {
-        return 'CrossRefSettingsForm';
+        return (string) classes\form\CrossRefSettingsForm::class;
     }
 
     /**
@@ -163,7 +163,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
      */
     public function getExportDeploymentClassName()
     {
-        return 'CrossrefExportDeployment';
+        return (string) CrossrefExportDeployment::class;
     }
 
     /**
@@ -325,9 +325,9 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
     /**
      * @see PubObjectsExportPlugin::depositXML()
      *
-     * @param $objects Submission
-     * @param $context Context
-     * @param $filename Export XML filename
+     * @param array $objects
+     * @param \PKP\context\Context $context
+     * @param string $filename Export XML filename
      */
     public function depositXML($objects, $context, $filename)
     {
@@ -423,11 +423,11 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
     /**
      * Check the CrossRef APIs, if deposits and registration have been successful
      *
-     * @param $context Context
-     * @param $object The object getting deposited
-     * @param $status int one of Doi::STATUS_*
-     * @param $batchId string
-     * @param $failedMsg string (opitonal)
+     * @param \PKP\context\Context $context
+     * @param Object $object The object getting deposited
+     * @param int $status One of Doi::STATUS_*
+     * @param string $batchId
+     * @param ?string $failedMsg (opitonal)
      */
     public function updateDepositStatus($context, $object, $status, $batchId = null, $failedMsg = null)
     {
