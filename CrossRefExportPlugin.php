@@ -155,7 +155,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
      */
     public function getSettingsFormClassName()
     {
-        return (string) classes\form\CrossRefSettingsForm::class;
+        return (string) \APP\plugins\generic\crossref\classes\form\CrossRefSettingsForm::class;
     }
 
     /**
