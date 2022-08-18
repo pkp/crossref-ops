@@ -205,7 +205,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      */
     public function isPluginConfigured(Context $context): bool
     {
-        $form = new \APP\plugins\generic\crossref\classes\form\CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
+        $form = new classes\form\CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
         $configurationErrors = $this->_getConfigurationErrors($context, $form);
 
         if (!empty($configurationErrors)) {
@@ -293,7 +293,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
             case 'settings':
                 $context = $request->getContext();
 
-                $form = new \APP\plugins\generic\crossref\classes\form\CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
+                $form = new classes\form\CrossRefSettingsForm($this->_getExportPlugin(), $context->getId());
                 $form->initData();
 
                 // Check for configuration errors
@@ -329,7 +329,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     /**
      * @return int[]
      */
-    private function _getConfigurationErrors(Context $context, CrossRefSettingsForm $form = null): array
+    private function _getConfigurationErrors(Context $context, classes\form\CrossRefSettingsForm $form = null): array
     {
         $configurationErrors = [];
 
