@@ -445,6 +445,10 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
                 $this->getDepositBatchIdSettingName() => $batchId
             ];
 
+            if ($status === Doi::STATUS_REGISTERED) {
+                $editParams['registrationAgency'] = $this->getName();
+            }
+
             Repo::doi()->edit($doi, $editParams);
         }
     }
