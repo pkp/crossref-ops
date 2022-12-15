@@ -23,6 +23,7 @@ use PKP\core\JSONMessage;
 use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
 use PKP\plugins\GenericPlugin;
+use PKP\plugins\Hook;
 use PKP\plugins\HookRegistry;
 use PKP\plugins\PluginRegistry;
 
@@ -90,11 +91,12 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     {
         PluginRegistry::register('importexport', new CrossRefExportPlugin(), $this->getPluginPath());
 
-        HookRegistry::register('Template::doiManagement', array($this, 'callbackShowDoiManagementTabs'));
-        HookRegistry::register('DoiSettingsForm::setEnabledRegistrationAgencies', [$this, 'addAsRegistrationAgencyOption']);
-        HookRegistry::register('Schema::get::doi', [$this, 'addToSchema']);
+        Hook::add('Template::doiManagement', array($this, 'callbackShowDoiManagementTabs'));
+        Hook::add('DoiSettingsForm::setEnabledRegistrationAgencies', [$this, 'addAsRegistrationAgencyOption']);
+        Hook::add('Schema::get::doi', [$this, 'addToSchema']);
 
-        HookRegistry::register('Doi::markRegistered', [$this, 'editMarkRegisteredParams']);
+        Hook::add('Doi::markRegistered', [$this, 'editMarkRegisteredParams']);
+        Hook::add('DoiListPanel::setConfig', [$this, 'addRegistrationAgencyName']);
 
     }
 
@@ -195,6 +197,22 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
             'value' => $this->getName(),
             'label' => 'Crossref'
         ];
+    }
+
+    /**
+     * Includes human-readable name of registration agency for display in conjunction with how/with whom the
+     * DOI was registered.
+     *
+     * @param string $hookName DoiListPanel::setConfig
+     * @param $args [
+     *      @option $config array
+     * ]
+     */
+    public function addRegistrationAgencyName(string $hookName, array $args): bool {
+        $config = &$args[0];
+        $config['registrationAgencyNames'][$this->_getExportPlugin()->getName()] = $this->getRegistrationAgencyName();
+
+        return HOOK::CONTINUE;
     }
 
     /**
