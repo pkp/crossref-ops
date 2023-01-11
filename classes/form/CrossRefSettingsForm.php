@@ -71,24 +71,6 @@ class CrossRefSettingsForm extends Form
 
         parent::__construct($plugin->getTemplateResource('settingsForm.tpl'));
 
-        // DOI plugin settings action link
-        $pubIdPlugins = PluginRegistry::loadCategory('pubIds', true);
-        if (isset($pubIdPlugins['doipubidplugin'])) {
-            $application = Application::get();
-            $request = $application->getRequest();
-            $dispatcher = $application->getDispatcher();
-            $doiPluginSettingsLinkAction = new LinkAction(
-                'settings',
-                new AjaxModal(
-                    $dispatcher->url($request, Application::ROUTE_COMPONENT, null, 'grid.settings.plugins.SettingsPluginGridHandler', 'manage', null, ['plugin' => 'doipubidplugin', 'category' => 'pubIds']),
-                    __('plugins.importexport.common.settings.DOIPluginSettings')
-                ),
-                __('plugins.importexport.common.settings.DOIPluginSettings'),
-                null
-            );
-            $this->setData('doiPluginSettingsLinkAction', $doiPluginSettingsLinkAction);
-        }
-
         // Add form validation checks.
         $this->addCheck(new FormValidator($this, 'depositorName', 'required', 'plugins.importexport.crossref.settings.form.depositorNameRequired'));
         $this->addCheck(new FormValidatorEmail($this, 'depositorEmail', 'required', 'plugins.importexport.crossref.settings.form.depositorEmailRequired'));
