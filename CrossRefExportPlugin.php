@@ -16,6 +16,7 @@ namespace APP\plugins\generic\crossref;
 use APP\core\Application;
 use APP\facades\Repo;
 use APP\plugins\DOIPubIdExportPlugin;
+use APP\plugins\IDoiRegistrationAgency;
 use GuzzleHttp\Exception\GuzzleException;
 use PKP\config\Config;
 use PKP\doi\Doi;
@@ -44,6 +45,15 @@ define('CROSSREF_DEPOSIT_STATUS', 'depositStatus');
 
 class CrossRefExportPlugin extends DOIPubIdExportPlugin
 {
+    protected IDoiRegistrationAgency $agencyPlugin;
+
+    public function __construct(IDoiRegistrationAgency $agencyPlugin)
+    {
+        parent::__construct();
+
+        $this->agencyPlugin = $agencyPlugin;
+    }
+
     public function register($category, $path, $mainContextId = null)
     {
         $success = parent::register($category, $path, $mainContextId);
@@ -87,6 +97,12 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
     public function getSubmissionFilter()
     {
         return 'preprint=>crossref-xml';
+    }
+
+    /** Proxy to main plugin class's `getSetting` method */
+    public function getSetting($contextId, $name)
+    {
+        return $this->agencyPlugin->getSetting($contextId, $name);
     }
 
     /**
@@ -157,7 +173,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
      */
     public function getSettingsFormClassName()
     {
-        return (string) \APP\plugins\generic\crossref\classes\form\CrossRefSettingsForm::class;
+        throw new \Exception("DOI settings no longer managed via plugin settings form.");
     }
 
     /**
