@@ -139,6 +139,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
         $settings = [
             $this->_getDepositBatchIdSettingName(),
             $this->_getFailedMsgSettingName(),
+            $this->_getSuccessMsgSettingName(),
         ];
 
         foreach ($settings as $settingName) {
@@ -258,7 +259,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      */
     public function getRegisteredMessageKey(): ?string
     {
-        return null;
+        return $this->_getSuccessMsgSettingName();
     }
 
     /**
@@ -273,6 +274,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     {
         $editParams = &$args[0];
         $editParams[$this->_getFailedMsgSettingName()] = null;
+        $editParams[$this->_getSuccessMsgSettingName()] = null;
 
         return false;
     }
@@ -389,5 +391,10 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     private function _getDepositBatchIdSettingName(): string
     {
         return $this->getName() . '_batchId';
+    }
+
+    private function _getSuccessMsgSettingName(): string
+    {
+        return $this->getName() . '_successMsg';
     }
 }
