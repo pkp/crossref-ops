@@ -140,6 +140,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
         return array_merge(parent::_getObjectAdditionalSettings(), [
             $this->getDepositBatchIdSettingName(),
             $this->getFailedMsgSettingName(),
+            $this->getSuccessMsgSettingName(),
         ]);
     }
 
@@ -370,7 +371,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
                 $eResponseBody = $e->getResponse()->getBody(true);
                 $eStatusCode = $e->getResponse()->getStatusCode();
                 if ($eStatusCode == CROSSREF_API_DEPOSIT_ERROR_FROM_CROSSREF) {
-                    $xmlDoc = new DOMDocument();
+                    $xmlDoc = new \DOMDocument();
                     $xmlDoc->loadXML($eResponseBody);
                     $batchIdNode = $xmlDoc->getElementsByTagName('batch_id')->item(0);
                     $msg = $xmlDoc->getElementsByTagName('msg')->item(0)->nodeValue;
@@ -387,9 +388,11 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
         }
 
         // Get DOMDocument from the response XML string
-        $xmlDoc = new DOMDocument();
+        $xmlDoc = new \DOMDocument();
         $xmlDoc->loadXML($response->getBody());
         $batchIdNode = $xmlDoc->getElementsByTagName('batch_id')->item(0);
+        $submissionIdNode = $xmlDoc->getElementsByTagName('submission_id')->item(0);
+        $successMessage = __('plugins.generic.crossref.successMessage', ['submissionId' => $submissionIdNode->nodeValue]);
 
         // Get the DOI deposit status
         // If the deposit failed
@@ -415,7 +418,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
 
         // Update the status
         if ($status) {
-            $this->updateDepositStatus($context, $objects, $status, $batchIdNode->nodeValue, $msgSave);
+            $this->updateDepositStatus($context, $objects, $status, $batchIdNode->nodeValue, $msgSave, $successMessage);
         }
 
         return $result;
@@ -430,7 +433,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
      * @param string $batchId
      * @param ?string $failedMsg (opitonal)
      */
-    public function updateDepositStatus($context, $object, $status, $batchId = null, $failedMsg = null)
+    public function updateDepositStatus($context, $object, $status, $batchId = null, $failedMsg = null, $successMsg = null)
     {
         assert($object instanceof \APP\submission\Submission);
         $doiIds = Repo::doi()->getDoisForSubmission($object->getId());
@@ -442,7 +445,8 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
                 'status' => $status,
                 // Sets a new failedMsg or resets to null for removal of previous message
                 $this->getFailedMsgSettingName() => $failedMsg,
-                $this->getDepositBatchIdSettingName() => $batchId
+                $this->getDepositBatchIdSettingName() => $batchId,
+                $this->getSuccessMsgSettingName() => $successMsg,
             ];
 
             if ($status === Doi::STATUS_REGISTERED) {
@@ -486,6 +490,16 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
     public function getDepositBatchIdSettingName()
     {
         return $this->getPluginSettingsPrefix().'_batchId';
+    }
+
+    /**
+     * Get deposit success message setting name
+     * NB: Changed as of 3.4
+     * @return string
+     */
+    public function getSuccessMsgSettingName(): string
+    {
+        return $this->getPluginSettingsPrefix() . '_successMsg';
     }
 
     /**
