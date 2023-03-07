@@ -29,7 +29,6 @@ use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
-use PKP\plugins\HookRegistry;
 use PKP\plugins\PluginRegistry;
 use PKP\services\PKPSchemaService;
 

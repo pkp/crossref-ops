@@ -22,7 +22,7 @@ use PKP\config\Config;
 use PKP\doi\Doi;
 use PKP\file\FileManager;
 use PKP\file\TemporaryFileManager;
-use PKP\plugins\HookRegistry;
+use PKP\plugins\Hook;
 use PKP\plugins\PluginRegistry;
 
 // The status of the Crossref DOI.
@@ -429,7 +429,7 @@ class CrossRefExportPlugin extends DOIPubIdExportPlugin
                 $result = [['plugins.importexport.crossref.register.success.warning', htmlspecialchars($response->getBody())]];
             }
             // A possibility for other plugins (e.g. reference linking) to work with the response
-            HookRegistry::call('crossrefexportplugin::deposited', [$this, $response->getBody(), $objects]);
+            Hook::call('crossrefexportplugin::deposited', [$this, $response->getBody(), $objects]);
         }
 
         // Update the status
