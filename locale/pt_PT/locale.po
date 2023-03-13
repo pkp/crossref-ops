@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-07 03:19+0000\n"
+"PO-Revision-Date: 2023-03-17 10:48+0000\n"
 "Last-Translator: José Carvalho <jcarvalho@keep.pt>\n"
 "Language-Team: Portuguese (Portugal) <http://translate.pkp.sfu.ca/projects/"
 "plugins/ops-crossref-importexport-plugin/pt_PT/>\n"
@@ -99,3 +99,15 @@ msgstr ""
 
 msgid "plugins.generic.crossref.registrationAgency.name"
 msgstr "Crossref"
+
+msgid "plugins.importexport.crossref.settings.form.username.description"
+msgstr ""
+"O nome de utilizador da Crossref que será usado para autenticar os seus "
+"depósitos. Se estiver a usar uma conta pessoal, consulte o aviso acima."
+
+msgid "plugins.generic.crossref.successMessage"
+msgstr ""
+"Os metadados para este item foram depositados na Crossref. Para mais "
+"detalhes, consulte a submissão no <a href=\"https://doi.crossref.org/servlet/"
+"submissionAdmin?sf=detail&submissionID={$submissionId}\">Painel de "
+"administração da Crossref</a>."
