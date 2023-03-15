@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-14 13:22+0000\n"
+"PO-Revision-Date: 2023-03-17 10:48+0000\n"
 "Last-Translator: Teodora Fildishevska <t.fildishevska@gmail.com>\n"
 "Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/mk/>\n"
@@ -18,7 +18,7 @@ msgid "plugins.generic.crossref.description"
 msgstr "Автоматско депонирање и експортирање на метаподатоци Crossref"
 
 msgid "plugins.importexport.crossref.settings.depositorIntro"
-msgstr "Следниве ставки се потребни за успешен депозит CrossRef."
+msgstr "Следните елементи се задолжителни за успешен Crossref депозит."
 
 msgid "plugins.importexport.crossref.settings.form.depositorName"
 msgstr "Име на депонент"
@@ -35,17 +35,16 @@ msgid "plugins.importexport.crossref.settings.form.depositorNameRequired"
 msgstr "Ве молиме внесете го името на поднесувачот."
 
 msgid "plugins.importexport.crossref.displayName"
-msgstr "Приклучок за експорт на CrossRef XML"
+msgstr "Приклучок за експортирање на Crossref XML"
 
 msgid "plugins.importexport.crossref.description"
-msgstr ""
-"Експортирајте метаподатоци за претходно печатење во формат CrossRef XML."
+msgstr "Експортирај ги метаподатоците на трудот во Crossref XML формат."
 
 msgid "plugins.importexport.crossref.requirements"
-msgstr "Барања"
+msgstr "Побарувања"
 
 msgid "plugins.importexport.crossref.requirements.satisfied"
-msgstr "Сите барања за приклучокот се задоволени."
+msgstr "Сите побарувања за плагинот се извршени."
 
 msgid "plugins.importexport.crossref.error.noDOIContentObjects"
 msgstr ""
@@ -74,7 +73,7 @@ msgstr ""
 "депозити. Доколку користите лична сметка, видете го советот погоре."
 
 msgid "plugins.importexport.crossref.settings.form.usernameRequired"
-msgstr "Ве молиме внесете го корисничкото име што го добивте од Crossref."
+msgstr "Ве молиме да го внесете корисничкото име кое го добивте од Crossref."
 
 msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
 msgstr ""
@@ -111,7 +110,7 @@ msgstr "Автоматска постапка за регистрација во
 
 msgid "plugins.importexport.crossref.cliUsage"
 msgstr ""
-"Користење:\n"
+"Употреба:\n"
 "{$scriptName} {$pluginName} export [xmlFileName] [server_path] preprints "
 "objectId1 [objectId2] ...\n"
 "{$scriptName} {$pluginName} register [server_path] preprints objectId1 "
@@ -163,8 +162,8 @@ msgstr ""
 
 msgid "plugins.importexport.crossref.settings.form.testMode.description"
 msgstr ""
-"Користете го CrossRef тест API (околина за тестирање) за депонирање DOI. Ве "
-"молиме не заборавајте да ја отстраните оваа опција во продукција."
+"Користете го Crossref API за тестирање (околина за тестирање) за DOI "
+"депозитот. Ве молиме не заборавајте да ја извадите оваа опција за продукција."
 
 msgid "plugins.importexport.crossref.issues.description"
 msgstr ""
