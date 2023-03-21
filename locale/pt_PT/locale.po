@@ -12,10 +12,10 @@ msgstr ""
 "X-Generator: Weblate 4.13.1\n"
 
 msgid "plugins.importexport.crossref.displayName"
-msgstr "Plugin de Exportação CrossRef XML"
+msgstr "Plugin de Exportação Crossref XML"
 
 msgid "plugins.importexport.crossref.description"
-msgstr "Exportar metadados do preprint no formato CrossRef XML."
+msgstr "Exportar metadados do preprint no formato Crossref XML."
 
 msgid "plugins.importexport.crossref.requirements"
 msgstr "Requisitos"

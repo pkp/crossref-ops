@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @file plugins/generic/crossref/CrossRefPlugin.php
+ * @file plugins/generic/crossref/CrossrefPlugin.php
  *
  * Copyright (c) 2014-2022 Simon Fraser University
  * Copyright (c) 2003-2022 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
- * @class CrossRefPlugin
+ * @class CrossrefPlugin
  * @brief Plugin to let managers deposit DOIs and metadata to Crossref
  *
  */
@@ -32,7 +32,7 @@ use PKP\services\PKPSchemaService;
 class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 {
     private CrossrefSettings $_settingsObject;
-    private ?CrossRefExportPlugin $_exportPlugin = null;
+    private ?CrossrefExportPlugin $_exportPlugin = null;
 
     public function getDisplayName() : string
     {
@@ -91,7 +91,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      */
     private function _pluginInitialization()
     {
-        PluginRegistry::register('importexport', new CrossRefExportPlugin($this), $this->getPluginPath());
+        PluginRegistry::register('importexport', new CrossrefExportPlugin($this), $this->getPluginPath());
 
         Hook::add('DoiSettingsForm::setEnabledRegistrationAgencies', [$this, 'addAsRegistrationAgencyOption']);
         Hook::add('DoiSetupSettingsForm::getObjectTypes', [$this, 'addAllowedObjectTypes']);
@@ -140,7 +140,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     public function exportSubmissions(array $submissions, Context $context): array
     {
         // Get filter and set objectsFileNamePart (see: PubObjectsExportPlugin::prepareAndExportPubObjects)
-        /** @var CrossRefExportPlugin */
+        /** @var CrossrefExportPlugin */
         $exportPlugin = $this->_getExportPlugin();
         $filterName = $exportPlugin->getSubmissionFilter();
         $xmlErrors = [];
@@ -335,13 +335,13 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     }
 
     /**
-     * @return CrossRefExportPlugin
+     * @return CrossrefExportPlugin
      */
     private function _getExportPlugin()
     {
         if (empty($this->_exportPlugin)) {
             $pluginCategory = 'importexport';
-            $pluginPathName = 'CrossRefExportPlugin';
+            $pluginPathName = 'CrossrefExportPlugin';
             $this->_exportPlugin = PluginRegistry::getPlugin($pluginCategory, $pluginPathName);
             // If being run from CLI, there is no context, so plugin initialization would not have been fired
             if ($this->_exportPlugin === null && !isset($_SERVER['SERVER_NAME'])) {

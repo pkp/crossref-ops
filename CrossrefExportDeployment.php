@@ -27,7 +27,7 @@ class CrossrefExportDeployment
     /** @var \PKP\context\Context The current import/export context */
     public $_context;
 
-    /** @var CrossRefExportPlugin The current import/export plugin */
+    /** @var CrossrefExportPlugin The current import/export plugin */
     public $_plugin;
 
     public function getCache()
