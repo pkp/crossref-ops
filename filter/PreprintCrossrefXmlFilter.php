@@ -14,6 +14,9 @@
 namespace APP\plugins\generic\crossref\filter;
 
 use APP\core\Application;
+use APP\plugins\generic\crossref\CrossrefExportDeployment;
+use APP\publication\Publication;
+use DOMDocument;
 use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
 
@@ -42,7 +45,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     public function &process(&$pubObjects)
     {
         // Create the XML document
-        $doc = new \DOMDocument('1.0', 'utf-8');
+        $doc = new DOMDocument('1.0', 'utf-8');
         $doc->preserveWhiteSpace = false;
         $doc->formatOutput = true;
         $deployment = $this->getDeployment();
@@ -52,7 +55,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $rootNode = $this->createRootNode($doc);
         $doc->appendChild($rootNode);
 
-        // Create and appet the 'head' node and all parts inside it
+        // Create and append the 'head' node and all parts inside it
         $rootNode->appendChild($this->createHeadNode($doc));
 
         // Create and append the 'body' node, that contains everything
@@ -86,6 +89,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createRootNode($doc)
     {
+        /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
         $rootNode = $doc->createElementNS($deployment->getNamespace(), $deployment->getRootElementName());
         $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', $deployment->getXmlSchemaInstance());
@@ -106,12 +110,13 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createHeadNode($doc)
     {
+        /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
         $context = $deployment->getContext();
         $plugin = $deployment->getPlugin();
         $headNode = $doc->createElementNS($deployment->getNamespace(), 'head');
-        $headNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('initials', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
-        $headNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'timestamp', date('YmdHisv')));
+        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('initials', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
+        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'timestamp', date('YmdHisv')));
         $depositorNode = $doc->createElementNS($deployment->getNamespace(), 'depositor');
         $depositorName = $plugin->getSetting($context->getId(), 'depositorName');
         if (empty($depositorName)) {
@@ -121,11 +126,11 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         if (empty($depositorEmail)) {
             $depositorEmail = $context->getData('supportEmail');
         }
-        $depositorNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'depositor_name', htmlspecialchars($depositorName, ENT_COMPAT, 'UTF-8')));
-        $depositorNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'email_address', htmlspecialchars($depositorEmail, ENT_COMPAT, 'UTF-8')));
+        $depositorNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'depositor_name', htmlspecialchars($depositorName, ENT_COMPAT, 'UTF-8')));
+        $depositorNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'email_address', htmlspecialchars($depositorEmail, ENT_COMPAT, 'UTF-8')));
         $headNode->appendChild($depositorNode);
         $publisherServer = $context->getLocalizedName();
-        $headNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'registrant', htmlspecialchars($publisherServer, ENT_COMPAT, 'UTF-8')));
+        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'registrant', htmlspecialchars($publisherServer, ENT_COMPAT, 'UTF-8')));
         return $headNode;
     }
 
@@ -133,14 +138,15 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      * Create and return the posted content node 'posted_content'.
      *
      * @param \DOMDocument $doc
+     * @param Publication $publication
      *
      * @return \DOMElement
      */
     public function createPostedContentNode($doc, $publication, $submission)
     {
-        assert(is_a($publication, 'Publication'));
+        assert($publication instanceof Publication);
+        /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
-        $context = $deployment->getContext();
         $request = Application::get()->getRequest();
 
         $locale = $publication->getData('locale');
@@ -152,7 +158,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $authors = $publication->getData('authors');
         if (!empty($authors)) {
             $contributorsNode = $doc->createElementNS($deployment->getNamespace(), 'contributors');
-        
+
             $isFirst = true;
             foreach ($authors as $author) {
                 $personNameNode = $doc->createElementNS($deployment->getNamespace(), 'person_name');
@@ -169,11 +175,11 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
                 // Check if both givenName and familyName is set for the submission language.
                 if (!empty($familyNames[$locale]) && !empty($givenNames[$locale])) {
                     $personNameNode->setAttribute('language', LocaleConversion::getIso1FromLocale($locale));
-                    $personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
-                    $personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyNames[$locale]), ENT_COMPAT, 'UTF-8')));
+                    $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
+                    $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyNames[$locale]), ENT_COMPAT, 'UTF-8')));
 
                     if ($author->getData('orcid')) {
-                        $personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid')));
+                        $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid')));
                     }
 
                     $hasAltName = false;
@@ -188,18 +194,18 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
                             $nameNode = $doc->createElementNS($deployment->getNamespace(), 'name');
                             $nameNode->setAttribute('language', LocaleConversion::getIso1FromLocale($otherLocal));
 
-                            $nameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyName), ENT_COMPAT, 'UTF-8')));
+                            $nameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyName), ENT_COMPAT, 'UTF-8')));
                             if (isset($givenNames[$otherLocal]) && !empty($givenNames[$otherLocal])) {
-                                $nameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$otherLocal]), ENT_COMPAT, 'UTF-8')));
+                                $nameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$otherLocal]), ENT_COMPAT, 'UTF-8')));
                             }
 
                             $altNameNode->appendChild($nameNode);
                         }
                     }
                 } else {
-                    $personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
+                    $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
                     if ($author->getData('orcid')) {
-                        $personNameNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid')));
+                        $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid')));
                     }
                 }
 
@@ -208,13 +214,13 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
             }
             $postedContentNode->appendChild($contributorsNode);
         }
-        
+
 
         // Titles
         $titlesNode = $doc->createElementNS($deployment->getNamespace(), 'titles');
-        $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'title', $publication->getLocalizedTitle($submission->getLocale(), 'html')));
+        $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'title', $publication->getLocalizedTitle($submission->getLocale(), 'html')));
         if ($subtitle = $publication->getLocalizedSubTitle($submission->getLocale(), 'html')) {
-            $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'subtitle', $subtitle));
+            $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'subtitle', $subtitle));
         }
         $postedContentNode->appendChild($titlesNode);
 
@@ -224,7 +230,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         // abstract
         if ($abstract = $publication->getData('abstract', $locale)) {
             $abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
-            $abstractNode->appendChild($node = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
+            $abstractNode->appendChild($doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
             $postedContentNode->appendChild($abstractNode);
         }
 
@@ -232,7 +238,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         if ($publication->getData('licenseUrl')) {
             $licenseNode = $doc->createElementNS($deployment->getAINamespace(), 'ai:program');
             $licenseNode->setAttribute('name', 'AccessIndicators');
-            $licenseNode->appendChild($node = $doc->createElementNS($deployment->getAINamespace(), 'ai:license_ref', htmlspecialchars($publication->getData('licenseUrl'), ENT_COMPAT, 'UTF-8')));
+            $licenseNode->appendChild($doc->createElementNS($deployment->getAINamespace(), 'ai:license_ref', htmlspecialchars($publication->getData('licenseUrl'), ENT_COMPAT, 'UTF-8')));
             $postedContentNode->appendChild($licenseNode);
         }
 
@@ -274,12 +280,12 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $postedDate = strtotime($objectPostedDate);
         $postedDateNode = $doc->createElementNS($deployment->getNamespace(), 'posted_date');
         if (date('m', $postedDate)) {
-            $postedDateNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'month', date('m', $postedDate)));
+            $postedDateNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'month', date('m', $postedDate)));
         }
         if (date('d', $postedDate)) {
-            $postedDateNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'day', date('d', $postedDate)));
+            $postedDateNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'day', date('d', $postedDate)));
         }
-        $postedDateNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'year', date('Y', $postedDate)));
+        $postedDateNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'year', date('Y', $postedDate)));
         return $postedDateNode;
     }
 
@@ -296,8 +302,8 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     {
         $deployment = $this->getDeployment();
         $doiDataNode = $doc->createElementNS($deployment->getNamespace(), 'doi_data');
-        $doiDataNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'doi', htmlspecialchars($doi, ENT_COMPAT, 'UTF-8')));
-        $doiDataNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'resource', htmlspecialchars($url, ENT_COMPAT, 'UTF-8')));
+        $doiDataNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi', htmlspecialchars($doi, ENT_COMPAT, 'UTF-8')));
+        $doiDataNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'resource', htmlspecialchars($url, ENT_COMPAT, 'UTF-8')));
         return $doiDataNode;
     }
 
@@ -311,6 +317,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createParentDoiNode($doc, $parentDoi)
     {
+        /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
         $parentDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
         $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
@@ -331,6 +338,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createVorDoiNode($doc, $vorDoi)
     {
+        /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
         $vorDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
         $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));

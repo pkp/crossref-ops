@@ -14,19 +14,16 @@
 
 namespace APP\plugins\generic\crossref;
 
-use APP\core\Application;
 use APP\core\Services;
 use APP\facades\Repo;
 use APP\plugins\generic\crossref\classes\CrossrefSettings;
 use APP\plugins\IDoiRegistrationAgency;
 use APP\services\ContextService;
+use Exception;
 use Illuminate\Support\Collection;
 use PKP\config\Config;
 use PKP\context\Context;
-use PKP\core\JSONMessage;
 use PKP\doi\RegistrationAgencySettings;
-use PKP\linkAction\LinkAction;
-use PKP\linkAction\request\AjaxModal;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 use PKP\plugins\PluginRegistry;
@@ -143,6 +140,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     public function exportSubmissions(array $submissions, Context $context): array
     {
         // Get filter and set objectsFileNamePart (see: PubObjectsExportPlugin::prepareAndExportPubObjects)
+        /** @var CrossRefExportPlugin */
         $exportPlugin = $this->_getExportPlugin();
         $filterName = $exportPlugin->getSubmissionFilter();
         $xmlErrors = [];
@@ -170,8 +168,8 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     /**
      * Includes plugin in list of configurable registration agencies for DOI depositing functionality
      *
-     * @param $hookName string DoiSettingsForm::setEnabledRegistrationAgencies
-     * @param $args array [
+     * @param string $hookName DoiSettingsForm::setEnabledRegistrationAgencies
+     * @param array $args [
      *      @option $enabledRegistrationAgencies Collection<IDoiRegistrationAgency>
      * ]
      */
@@ -226,7 +224,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 
         $contextId = $props['id'];
         if (empty($contextId)) {
-            throw new \Exception("A context ID must be present to edit context settings");
+            throw new Exception("A context ID must be present to edit context settings");
         }
 
         /** @var ContextService $contextService */
@@ -251,7 +249,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      * DOI was registered.
      *
      * @param string $hookName DoiListPanel::setConfig
-     * @param $args [
+     * @param array $args [
      *      @option $config array
      * ]
      */
@@ -336,6 +334,9 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
         return false;
     }
 
+    /**
+     * @return CrossRefExportPlugin
+     */
     private function _getExportPlugin()
     {
         if (empty($this->_exportPlugin)) {
