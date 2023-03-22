@@ -15,10 +15,10 @@ msgstr ""
 "X-Generator: Weblate 3.9.1\n"
 
 msgid "plugins.importexport.crossref.displayName"
-msgstr "CrossRef XML Export Plugin"
+msgstr "Crossref XML Export Plugin"
 
 msgid "plugins.importexport.crossref.description"
-msgstr "Export preprint metadata in CrossRef XML format."
+msgstr "Export preprint metadata in Crossref XML format."
 
 msgid "plugins.generic.crossref.displayName"
 msgstr "Crossref Manager Plugin"
@@ -36,7 +36,7 @@ msgid "plugins.importexport.crossref.error.noDOIContentObjects"
 msgstr "Preprints are not selected for DOI assignment in the DOI public identifier plugin, so there is no deposit or export possibility in this plugin."
 
 msgid "plugins.importexport.crossref.settings.depositorIntro"
-msgstr "The following items are required for a successful CrossRef deposit."
+msgstr "The following items are required for a successful Crossref deposit."
 
 msgid "plugins.importexport.crossref.settings.form.depositorName"
 msgstr "Depositor name"
@@ -79,11 +79,11 @@ msgid "plugins.importexport.crossref.settings.form.usernameRequired"
 msgstr "Please enter the username you got from Crossref."
 
 msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
-msgstr "OPS will deposit assigned DOIs automatically to CrossRef. Please note that this may take a short amount of time after publication to process  (e.g. depending on your cronjob configuration). You can check for all unregistered DOIs."
+msgstr "OPS will deposit assigned DOIs automatically to Crossref. Please note that this may take a short amount of time after publication to process  (e.g. depending on your cronjob configuration). You can check for all unregistered DOIs."
 
 #, fuzzy
 msgid "plugins.importexport.crossref.settings.form.testMode.description"
-msgstr "Use the CrossRef test API (testing environment) for the DOI deposit. Please do not forget to remove this option in production."
+msgstr "Use the Crossref test API (testing environment) for the DOI deposit. Please do not forget to remove this option in production."
 
 msgid "plugins.importexport.crossref.settings.form.validation"
 msgstr "Validate XML. Use this option for the XML download for the manual DOI registration."
@@ -123,7 +123,7 @@ msgid "plugins.importexport.crossref.action.markRegistered"
 msgstr "Mark active"
 
 msgid "plugins.importexport.crossref.senderTask.name"
-msgstr "CrossRef automatic registration task"
+msgstr "Crossref automatic registration task"
 
 msgid "plugins.importexport.crossref.cliUsage"
 msgstr ""
