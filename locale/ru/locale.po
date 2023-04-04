@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-05 03:42+0000\n"
+"PO-Revision-Date: 2023-04-05 09:48+0000\n"
 "Last-Translator: Pavel Pisklakov <ppv1979@mail.ru>\n"
 "Language-Team: Russian <http://translate.pkp.sfu.ca/projects/plugins/"
-"ops-crossref-importexport-plugin/ru_RU/>\n"
-"Language: ru_RU\n"
+"ops-crossref-importexport-plugin/ru/>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -141,3 +141,24 @@ msgstr "Экспортирует метаданные препринта в фо
 
 msgid "plugins.importexport.crossref.displayName"
 msgstr "Модуль «Экспорт CrossRef XML»"
+
+msgid "plugins.importexport.crossref.settings.form.depositorName.description"
+msgstr ""
+"Название организации, регистрирующей DOI. Включается в набор депонируемых "
+"метаданных и используется для идентификации того, кто произвёл депонирование."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
+msgstr ""
+"Адрес электронной почты лица, ответственного за регистрацию контента в "
+"Crossref. Включается в набор депонируемых метаданных и используется при "
+"отправке письма с подтверждением депонирования."
+
+msgid "plugins.generic.crossref.successMessage"
+msgstr ""
+"Метаданные для этого объекта были депонированы в Crossref. Чтобы просмотреть "
+"детали, посмотрите материал в <a href=\"https://doi.crossref.org/servlet/"
+"submissionAdmin?sf=detail&submissionID={$submissionId}\">панели "
+"администрирования Crossref</a>."
+
+msgid "plugins.generic.crossref.description"
+msgstr "Выполняет депонирование и экспорт метаданных в Crossref"
