@@ -8,6 +8,7 @@
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class CrossrefExportPlugin
+ *
  * @brief Crossref/MEDLINE XML metadata export plugin
  */
 
@@ -169,7 +170,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      */
     public function getSettingsFormClassName()
     {
-        throw new Exception("DOI settings no longer managed via plugin settings form.");
+        throw new Exception('DOI settings no longer managed via plugin settings form.');
     }
 
     /**
@@ -241,14 +242,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     /**
      * Exports and stores XML as a TemporaryFile
      *
-     * @param \PKP\context\Context $context
-     * @param array $objects
-     * @param string $filter
-     * @param string $objectsFileNamePart
-     * @param bool|null $noValidation
-     * @param array|null $exportErrors
      *
-     * @return int|null
      * @throws Exception
      */
     public function exportAsDownload(\PKP\context\Context $context, array $objects, string $filter, string $objectsFileNamePart, ?bool $noValidation = null, ?array &$exportErrors = null): ?int
@@ -273,6 +267,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      *
      * @param string $hookName
      * @param array $args [
+     *
      *        @option Publication The new version of the publication
      *        @option Publication The old version of the publication
      * ]
@@ -444,6 +439,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      * @param int $status One of Doi::STATUS_*
      * @param string $batchId
      * @param ?string $failedMsg (optional)
+     * @param null|mixed $successMsg
      */
     public function updateDepositStatus($context, $object, $status, $batchId = null, $failedMsg = null, $successMsg = null)
     {
@@ -487,27 +483,28 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     /**
      * Get request failed message setting name.
      * NB: Changed as of 3.4
+     *
      * @return string
      */
     public function getFailedMsgSettingName()
     {
-        return $this->getPluginSettingsPrefix().'_failedMsg';
+        return $this->getPluginSettingsPrefix() . '_failedMsg';
     }
 
     /**
      * Get deposit batch ID setting name.
      * NB: Changed as of 3.4
+     *
      * @return string
      */
     public function getDepositBatchIdSettingName()
     {
-        return $this->getPluginSettingsPrefix().'_batchId';
+        return $this->getPluginSettingsPrefix() . '_batchId';
     }
 
     /**
      * Get deposit success message setting name
      * NB: Changed as of 3.4
-     * @return string
      */
     public function getSuccessMsgSettingName(): string
     {

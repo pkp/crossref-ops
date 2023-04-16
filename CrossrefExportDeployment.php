@@ -7,6 +7,7 @@
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class CrossrefExportDeployment
+ *
  * @brief Base class configuring the crossref export process to an
  * application's specifics.
  */

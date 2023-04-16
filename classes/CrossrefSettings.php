@@ -8,6 +8,7 @@
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class CrossrefSettings
+ *
  * @ingroup plugins_generic_crossref
  *
  * @brief Setting management class to handle schema, fields, validation, etc. for Crossref plugin
@@ -22,9 +23,8 @@ use PKP\context\Context;
 
 class CrossrefSettings extends \PKP\doi\RegistrationAgencySettings
 {
-
-	public function getSchema(): \stdClass
-	{
+    public function getSchema(): \stdClass
+    {
         return (object) [
             'title' => 'Crossref Plugin',
             'description' => 'Registration agency plugin for Crossref',
@@ -52,13 +52,13 @@ class CrossrefSettings extends \PKP\doi\RegistrationAgencySettings
                 ]
             ],
         ];
-	}
+    }
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getFields(Context $context): array
-	{
+    /**
+     * @inheritDoc
+     */
+    public function getFields(Context $context): array
+    {
         return [
             new FieldHTML('preamble', [
                 'label' => __('plugins.importexport.crossref.settings'),
@@ -99,7 +99,7 @@ class CrossrefSettings extends \PKP\doi\RegistrationAgencySettings
                 'value' => (bool) $this->agencyPlugin->getSetting($context->getId(), 'testMode'),
             ]),
         ];
-	}
+    }
 
     protected function _getPreambleText(): string
     {

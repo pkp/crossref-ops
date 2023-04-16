@@ -8,6 +8,7 @@
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class PreprintCrossrefXmlFilter
+ *
  * @brief Class that converts a Preprint to a Crossref XML document.
  */
 
@@ -40,6 +41,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      * @see Filter::process()
      *
      * @param array $pubObjects array Array of Issues or Submissions
+     *
      * @return \DOMDocument
      */
     public function &process(&$pubObjects)
@@ -320,7 +322,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
         $parentDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
-        $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
+        $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation', htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
         $intraWorkRelationNode->setAttribute('relationship-type', 'isVersionOf');
         $intraWorkRelationNode->setAttribute('identifier-type', 'doi');
         $parentDoiNode->appendChild($intraWorkRelationNode);
@@ -341,7 +343,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         /** @var CrossrefExportDeployment */
         $deployment = $this->getDeployment();
         $vorDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
-        $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation',  htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));
+        $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation', htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));
         $intraWorkRelationNode->setAttribute('relationship-type', 'isPreprintOf');
         $intraWorkRelationNode->setAttribute('identifier-type', 'doi');
         $vorDoiNode->appendChild($intraWorkRelationNode);
@@ -352,9 +354,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     /**
      * Helper to ensure dispatcher is available even when called from CLI tools
      *
-     * @param \APP\core\Request $request
      *
-     * @return \PKP\core\Dispatcher
      */
     protected function _getDispatcher(\APP\core\Request $request): \PKP\core\Dispatcher
     {

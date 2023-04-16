@@ -8,6 +8,7 @@
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class CrossrefPlugin
+ *
  * @brief Plugin to let managers deposit DOIs and metadata to Crossref
  *
  */
@@ -34,18 +35,20 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     private CrossrefSettings $_settingsObject;
     private ?CrossrefExportPlugin $_exportPlugin = null;
 
-    public function getDisplayName() : string
+    public function getDisplayName(): string
     {
         return __('plugins.generic.crossref.displayName');
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return __('plugins.generic.crossref.description');
     }
 
     /**
      * @copydoc Plugin::register()
+     *
+     * @param null|mixed $mainContextId
      */
     public function register($category, $path, $mainContextId = null)
     {
@@ -100,7 +103,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 
         Hook::add('Doi::markRegistered', [$this, 'editMarkRegisteredParams']);
         Hook::add('DoiListPanel::setConfig', [$this, 'addRegistrationAgencyName']);
-
     }
 
     /**
@@ -108,10 +110,10 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      *
      * @param string $hookName `Schema::get::doi`
      * @param array $args [
+     *
      *      @option stdClass $schema
      * ]
      *
-     * @return bool
      */
     public function addToSchema(string $hookName, array $args): bool
     {
@@ -145,7 +147,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
         $filterName = $exportPlugin->getSubmissionFilter();
         $xmlErrors = [];
 
-        $temporaryFileId =  $exportPlugin->exportAsDownload($context, $submissions, $filterName, 'preprints', null, $xmlErrors);
+        $temporaryFileId = $exportPlugin->exportAsDownload($context, $submissions, $filterName, 'preprints', null, $xmlErrors);
         return ['temporaryFileId' => $temporaryFileId, 'xmlErrors' => $xmlErrors];
     }
 
@@ -170,6 +172,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      *
      * @param string $hookName DoiSettingsForm::setEnabledRegistrationAgencies
      * @param array $args [
+     *
      *      @option $enabledRegistrationAgencies Collection<IDoiRegistrationAgency>
      * ]
      */
@@ -187,15 +190,16 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      *
      * @param string $hookName DoiSetupSettingsForm::getObjectTypes
      * @param array $args [
+     *
      *      @option array &$objectTypeOptions
      * ]
-     * @return bool
      */
-    public function addAllowedObjectTypes(string $hookName, array $args): bool {
+    public function addAllowedObjectTypes(string $hookName, array $args): bool
+    {
         $objectTypeOptions = &$args[0];
         $allowedTypes = $this->getAllowedDoiTypes();
 
-        $objectTypeOptions = array_map(function($option) use ($allowedTypes) {
+        $objectTypeOptions = array_map(function ($option) use ($allowedTypes) {
             if (in_array($option['value'], $allowedTypes)) {
                 $option['allowedBy'][] = $this->getName();
             }
@@ -208,9 +212,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     /**
      * Add validation rule to Context for restriction of allowed pubObject types for DOI registration.
      *
-     * @param string $hookName
-     * @param array $args
-     * @return bool
      * @throws \Exception
      */
     public function validateAllowedPubObjectTypes(string $hookName, array $args): bool
@@ -224,7 +225,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 
         $contextId = $props['id'];
         if (empty($contextId)) {
-            throw new Exception("A context ID must be present to edit context settings");
+            throw new Exception('A context ID must be present to edit context settings');
         }
 
         /** @var ContextService $contextService */
@@ -250,10 +251,12 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      *
      * @param string $hookName DoiListPanel::setConfig
      * @param array $args [
+     *
      *      @option $config array
      * ]
      */
-    public function addRegistrationAgencyName(string $hookName, array $args): bool {
+    public function addRegistrationAgencyName(string $hookName, array $args): bool
+    {
         $config = &$args[0];
         $config['registrationAgencyNames'][$this->_getExportPlugin()->getName()] = $this->getRegistrationAgencyName();
 
@@ -263,8 +266,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
     /**
      * Checks if plugin meets registration agency-specific requirements for being active and handling deposits
      *
-     * @param Context $context
-     * @return bool
      */
     public function isPluginConfigured(Context $context): bool
     {
@@ -294,7 +295,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
 
     /**
      * Get configured registration agency display name for use in DOI management pages
-     * @return string
      */
     public function getRegistrationAgencyName(): string
     {
@@ -321,9 +321,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      * Adds Crossref specific info to Repo::doi()->markRegistered()
      *
      * @param string $hookName Doi::markRegistered
-     * @param array $args
      *
-     * @return bool
      */
     public function editMarkRegisteredParams(string $hookName, array $args): bool
     {
@@ -356,7 +354,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      * Get request failed message setting name.
      * NB: Change from 3.3.x to camelCase (over crossref::failedMsg)
      *
-     * @return string
      */
     private function _getFailedMsgSettingName(): string
     {
@@ -367,7 +364,6 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
      * Get deposit batch ID setting name.
      * NB: Change from 3.3.x to camelCase (over crossref::batchId)
      *
-     * @return string
      */
     private function _getDepositBatchIdSettingName(): string
     {
@@ -399,4 +395,3 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
         return [Repo::doi()::TYPE_PUBLICATION];
     }
 }
-
