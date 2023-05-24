@@ -19,16 +19,17 @@ use APP\facades\Repo;
 use APP\notification\Notification;
 use APP\plugins\DOIPubIdExportPlugin;
 use APP\plugins\IDoiRegistrationAgency;
+use APP\submission\Submission;
 use DOMDocument;
 use Exception;
 use GuzzleHttp\Exception\RequestException;
 use PKP\config\Config;
+use PKP\core\DataObject;
 use PKP\doi\Doi;
 use PKP\file\FileManager;
 use PKP\file\TemporaryFileManager;
 use PKP\plugins\Hook;
 use PKP\plugins\Plugin;
-use PKP\plugins\PluginRegistry;
 
 class CrossrefExportPlugin extends DOIPubIdExportPlugin
 {
@@ -186,7 +187,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      *
      * @param null|mixed $noValidation
      */
-    public function exportAndDeposit($context, $objects, $filter, $objectsFileNamePart, string &$responseMessage, $noValidation = null)
+    public function exportAndDeposit($context, $objects, $filter, string &$responseMessage, $noValidation = null)
     {
         $fileManager = new FileManager();
         $resultErrors = [];
@@ -210,7 +211,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
             $exportXml = $this->exportXML([$object], $filter, $context, $noValidation, $exportErrors);
             // Write the XML to a file.
             // export file name example: crossref-20160723-160036-preprints-1-1.xml
-            $objectFileNamePart = $objectsFileNamePart . '-' . $object->getId();
+            $objectFileNamePart = $this->_getObjectFileNamePart($object);
             $exportFileName = $this->getExportFileName($this->getExportPath(), $objectFileNamePart, $context, '.xml');
             $fileManager->writeFile($exportFileName, $exportXml);
             // Deposit the XML file.
@@ -252,8 +253,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
         $exportErrors = [];
         $exportXml = $this->exportXML($objects, $filter, $context, $noValidation, $exportErrors);
 
-        $objectFileNamePart = $objectsFileNamePart . '-' . $objects[0]->getId();
-        $exportFileName = $this->getExportFileName($this->getExportPath(), $objectFileNamePart, $context, '.xml');
+        $exportFileName = $this->getExportFileName($this->getExportPath(), $objectsFileNamePart, $context, '.xml');
 
         $fileManager->writeFile($exportFileName, $exportXml);
 
@@ -517,5 +517,18 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     public function getDepositSuccessNotificationMessageKey()
     {
         return 'plugins.importexport.common.register.success';
+    }
+
+    /**
+     * @param Submission $object
+     *
+     */
+    private function _getObjectFileNamePart(DataObject $object): string
+    {
+        if ($object instanceof Submission) {
+            return 'preprints-' . $object->getId();
+        } else {
+            return '';
+        }
     }
 }

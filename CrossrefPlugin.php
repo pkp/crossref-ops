@@ -159,7 +159,7 @@ class CrossrefPlugin extends GenericPlugin implements IDoiRegistrationAgency
         $exportPlugin = $this->_getExportPlugin();
         $filterName = $exportPlugin->getSubmissionFilter();
         $responseMessage = '';
-        $status = $exportPlugin->exportAndDeposit($context, $submissions, $filterName, 'articles', $responseMessage);
+        $status = $exportPlugin->exportAndDeposit($context, $submissions, $filterName, $responseMessage);
 
         return [
             'hasErrors' => !$status,
