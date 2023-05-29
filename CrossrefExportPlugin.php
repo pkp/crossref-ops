@@ -168,6 +168,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
 
     /**
      * @copydoc PubObjectsExportPlugin::getSettingsFormClassName()
+     * @return string
      */
     public function getSettingsFormClassName()
     {
@@ -334,11 +335,11 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     /**
      * @see PubObjectsExportPlugin::depositXML()
      *
-     * @param array $objects
+     * @param object $object
      * @param \PKP\context\Context $context
      * @param string $filename Export XML filename
      */
-    public function depositXML($objects, $context, $filename)
+    public function depositXML($object, $context, $filename)
     {
         $status = null;
         $msgSave = null;
@@ -384,11 +385,11 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
                     $msg = $xmlDoc->getElementsByTagName('msg')->item(0)->nodeValue;
                     $msgSave = $msg . PHP_EOL . $eResponseBody;
                     $status = Doi::STATUS_ERROR;
-                    $this->updateDepositStatus($context, $objects, $status, $batchIdNode->nodeValue, $msgSave);
+                    $this->updateDepositStatus($context, $object, $status, $batchIdNode->nodeValue, $msgSave);
                     $returnMessage = $msg . ' (' . $eStatusCode . ' ' . $e->getResponse()->getReasonPhrase() . ')';
                 } else {
                     $returnMessage = $eResponseBody . ' (' . $eStatusCode . ' ' . $e->getResponse()->getReasonPhrase() . ')';
-                    $this->updateDepositStatus($context, $objects, Doi::STATUS_ERROR, null, $returnMessage);
+                    $this->updateDepositStatus($context, $object, Doi::STATUS_ERROR, null, $returnMessage);
                 }
             }
             return [['plugins.importexport.common.register.error.mdsError', $returnMessage]];
@@ -420,12 +421,12 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
                 $result = [['plugins.importexport.crossref.register.success.warning', htmlspecialchars($response->getBody())]];
             }
             // A possibility for other plugins (e.g. reference linking) to work with the response
-            Hook::call('crossrefexportplugin::deposited', [$this, $response->getBody(), $objects]);
+            Hook::call('crossrefexportplugin::deposited', [$this, $response->getBody(), $object]);
         }
 
         // Update the status
         if ($status) {
-            $this->updateDepositStatus($context, $objects, $status, $batchIdNode->nodeValue, $msgSave, $successMessage);
+            $this->updateDepositStatus($context, $object, $status, $batchIdNode->nodeValue, $msgSave, $successMessage);
         }
 
         return $result;
@@ -435,7 +436,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      * Check the Crossref APIs, if deposits and registration have been successful
      *
      * @param \PKP\context\Context $context
-     * @param Object $object The object getting deposited
+     * @param object $object The object getting deposited
      * @param int $status One of Doi::STATUS_*
      * @param string $batchId
      * @param ?string $failedMsg (optional)
@@ -443,7 +444,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      */
     public function updateDepositStatus($context, $object, $status, $batchId = null, $failedMsg = null, $successMsg = null)
     {
-        assert($object instanceof \APP\submission\Submission);
+        assert($object instanceof Submission);
         $doiIds = Repo::doi()->getDoisForSubmission($object->getId());
 
         foreach ($doiIds as $doiId) {

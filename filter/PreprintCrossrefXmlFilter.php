@@ -360,7 +360,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     {
         $dispatcher = $request->getDispatcher();
         if ($dispatcher === null) {
-            $dispatcher = \APP\core\Application::get()->getDispatcher();
+            $dispatcher = Application::get()->getDispatcher();
         }
 
         return $dispatcher;
