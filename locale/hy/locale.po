@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-07 12:48+0000\n"
+"PO-Revision-Date: 2023-06-18 04:49+0000\n"
 "Last-Translator: Tigran Zargaryan <tigran@flib.sci.am>\n"
 "Language-Team: Armenian <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/hy/>\n"
@@ -150,7 +150,7 @@ msgid "plugins.importexport.crossref.description"
 msgstr "Արտահանել նախատպման մետատվյալները Crossref XML ձևաչափով:"
 
 msgid "plugins.importexport.crossref.displayName"
-msgstr "CrossRef XML արտահանման փլագին"
+msgstr "Crossref XML արտահանման փլագին"
 
 msgid "plugins.generic.crossref.description"
 msgstr "Կառավարում է Crossref մետատվյալների ավանդադրումը և արտահանումը"
