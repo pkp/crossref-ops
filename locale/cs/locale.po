@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-22 04:49+0000\n"
+"PO-Revision-Date: 2023-06-21 08:49+0000\n"
 "Last-Translator: Jiří Dlouhý <jiri.dlouhy@czp.cuni.cz>\n"
 "Language-Team: Czech <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/cs/>\n"
