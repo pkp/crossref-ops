@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-27 09:49+0000\n"
+"PO-Revision-Date: 2023-06-21 08:49+0000\n"
 "Last-Translator: José Carvalho <jcarvalho@keep.pt>\n"
 "Language-Team: Portuguese (Portugal) <http://translate.pkp.sfu.ca/projects/"
 "plugins/ops-crossref-importexport-plugin/pt_PT/>\n"
@@ -28,7 +28,7 @@ msgstr "Plugin de Gestão CrossRef"
 
 msgid "plugins.importexport.crossref.settings.depositorIntro"
 msgstr ""
-"Os seguintes itens são necessários para um depósito na CrossRef bem sucedido."
+"Os seguintes itens são necessários para um depósito bem sucedido na CrossRef."
 
 msgid "plugins.importexport.crossref.settings.form.depositorName"
 msgstr "Nome do depositante"
