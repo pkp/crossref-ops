@@ -155,6 +155,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         $postedContentNode = $doc->createElementNS($deployment->getNamespace(), 'posted_content');
         $postedContentNode->setAttribute('type', 'preprint');
+        $postedContentNode->setAttribute('language', LocaleConversion::getIso1FromLocale($locale));
 
         // contributors
         $authors = $publication->getData('authors');
@@ -230,8 +231,10 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $postedContentNode->appendChild($this->createPostedDateNode($doc, $publication->getData('datePublished')));
 
         // abstract
-        if ($abstract = $publication->getData('abstract', $locale)) {
+        $abstracts = $publication->getData('abstract');
+        foreach($abstracts as $lang => $abstract) {
             $abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
+            $abstractNode->setAttributeNS($deployment->getXMLNamespace(), 'xml:lang', LocaleConversion::getIso1FromLocale($lang));
             $abstractNode->appendChild($doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
             $postedContentNode->appendChild($abstractNode);
         }
