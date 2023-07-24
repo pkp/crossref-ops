@@ -1,2 +1,149 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2023-07-25 11:58+0000\n"
+"Last-Translator: Jordi LC <jordi.lacruz@uab.cat>\n"
+"Language-Team: Catalan <http://translate.pkp.sfu.ca/projects/plugins/"
+"ops-crossref-importexport-plugin/ca/>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "plugins.importexport.crossref.error.noDOIContentObjects"
+msgstr ""
+"No s'ha seleccionat cap preprint per assignar-li DOI en el mòdul "
+"d'identificador públic DOI, de manera que aquest mòdul no pot dipositar o "
+"exportar res."
+
+msgid "plugins.importexport.crossref.settings.depositorIntro"
+msgstr ""
+"Per dipositar correctament a Crossref són necessaris els elements següents."
+
+msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
+msgstr ""
+"OPS dipositarà els DOI assignats automàticament a Crossref. Heu de tenir en "
+"compte que això pot trigar una mica després del procés de publicació (per "
+"exemple, segons la configuració de les tasques cron). Podeu comprovar tots "
+"els DOI no registrats."
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Validar XML. Feu servir aquesta opció per descarregar l'XML per fer el "
+"registre manual del DOI."
+
+msgid "plugins.importexport.crossref.settings.form.depositorName.description"
+msgstr ""
+"Nom de l'organització que registra els DOI. Aquesta s'inclou amb les "
+"metadades dipositades i es fa servir per registrar qui ha fet el dipòsit."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
+msgstr ""
+"Adreça de correu electrònic de la persona responsable de registrar el "
+"contingut a Crossref. Aquesta s'inclou en les metadades dipositades i es "
+"farà servir per enviar el correu electrònic de confirmació del dipòsit."
+
+msgid "plugins.importexport.crossref.displayName"
+msgstr "Mòdul d'exportació XML de Crossref"
+
+msgid "plugins.importexport.crossref.description"
+msgstr "Exportar les metadades del preprint en format XML de Crossref."
+
+msgid "plugins.generic.crossref.displayName"
+msgstr "Mòdul d'administració de Crossref"
+
+msgid "plugins.generic.crossref.description"
+msgstr "Gestiona el dipòsit i l'exportació de metadades de Crossref"
+
+msgid "plugins.importexport.crossref.requirements"
+msgstr "Requisits"
+
+msgid "plugins.importexport.crossref.requirements.satisfied"
+msgstr "Es compleixen tots els requisits del mòdul."
+
+msgid "plugins.importexport.crossref.settings.form.depositorName"
+msgstr "Nom del dipositant"
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail"
+msgstr "Correu electrònic del dipositant"
+
+msgid "plugins.importexport.crossref.settings.form.depositorNameRequired"
+msgstr "Introduïu el nom del dipositant."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
+msgstr "Introduïu el correu electrònic del dipositant."
+
+msgid "plugins.importexport.crossref.settings"
+msgstr "Configuració de Crossref"
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "Nom d'usuari/ària"
+
+msgid "plugins.importexport.crossref.settings.form.username.description"
+msgstr ""
+"El nom d'usuari/ària de Crossref que s'utilitzarà per autenticar els vostres "
+"dipòsits. Si feu servir un compte personal, consulteu l'avís anterior."
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "Introduïu el nom d'usuari/ària obtingut des de Crossref."
+
+msgid "plugins.importexport.crossref.issues.description"
+msgstr ""
+"Nota: Aquí només es tindran en compte els números (no els seus preprints) "
+"per a l'exportació/registre."
+
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Ha fallat"
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "Actius"
+
+msgid "plugins.generic.crossref.successMessage"
+msgstr ""
+"Les metadades d'aquest element s'han dipositat a Crossref. Per veure més "
+"detalls, consulteu la tramesa en el <a href=\"https://doi.crossref.org/"
+"servlet/submissionAdmin?sf=detail&submissionID={$submissionId}\">tauler "
+"d'administració de Crossref</a>."
+
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "Marcat com a actiu"
+
+msgid "plugins.importexport.crossref.action.register"
+msgstr "Dipositar"
+
+msgid "plugins.importexport.crossref.action.export"
+msgstr "Descarregar XML"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "Marcar com a actiu"
+
+msgid "plugins.importexport.crossref.senderTask.name"
+msgstr "Tasca de registre automàtic de Crossref"
+
+msgid "plugins.importexport.crossref.cliUsage"
+msgstr ""
+"Uso:\n"
+"{$scriptName} {$pluginName} export [xmlFileName] [server_path] preprints "
+"objectId1 [objectId2] ...\n"
+"{$scriptName} {$pluginName} register [server_path] preprints objectId1 "
+"[objectId2] ...\n"
+
+msgid "plugins.importexport.crossref.register.error.mdsError"
+msgstr ""
+"El registre no ha estat del tot correcte! El servidor de registre DOI ha "
+"donat un error."
+
+msgid "plugins.importexport.crossref.register.success.warning"
+msgstr ""
+"El registre ha finalitzat correctament, però s'ha produït la següent "
+"advertència: '{$param}'."
+
+msgid "plugins.importexport.crossref.export.error.issueNotFound"
+msgstr "No hi ha cap número amb l'ID \"{$issueId}\"."
+
+msgid "plugins.importexport.crossref.export.error.preprintNotFound"
+msgstr "No hi ha cap preprint amb l'ID \"{$preprintId}\"."
+
+msgid "plugins.generic.crossref.registrationAgency.name"
+msgstr "Crossref"
