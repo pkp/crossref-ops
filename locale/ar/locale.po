@@ -1,2 +1,119 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2023-09-27 05:06+0000\n"
+"Last-Translator: M. Ali <vorteem@gmail.com>\n"
+"Language-Team: Arabic <http://translate.pkp.sfu.ca/projects/plugins/"
+"ops-crossref-importexport-plugin/ar/>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "plugins.importexport.crossref.displayName"
+msgstr "إضافة تصدير Crossref XML"
+
+msgid "plugins.importexport.crossref.description"
+msgstr "تصدير البيانات الوصفية لما قبل الطباعة بصيغة Crossref XML."
+
+msgid "plugins.generic.crossref.displayName"
+msgstr "إضافة مدير Crossref"
+
+msgid "plugins.generic.crossref.description"
+msgstr "يتعامل مع البيانات الوصفية لـ Crossref من حيث الإيداع والتصدير"
+
+msgid "plugins.importexport.crossref.requirements"
+msgstr "المتطلبات"
+
+msgid "plugins.importexport.crossref.requirements.satisfied"
+msgstr "تمت تلبية كل متطلبات الإضافة."
+
+msgid "plugins.importexport.crossref.error.noDOIContentObjects"
+msgstr ""
+"لم يتم تحديد ما قبل الطباعة لأغراض تعيين مُعرَّف المكون الرقمي في إضافة "
+"مُعرَّف المكون الرقمي العمومي، لذلك ليست هناك إمكانية للإيداع أو التصدير في "
+"هذه الإضافة."
+
+msgid "plugins.importexport.crossref.settings.depositorIntro"
+msgstr "العناصر الآتية مطلوبة من أجل إنجاح إيداع Crossref."
+
+msgid "plugins.importexport.crossref.settings.form.depositorName"
+msgstr "اسم المودِع"
+
+msgid "plugins.importexport.crossref.settings.form.depositorName.description"
+msgstr ""
+"اسم المنظمة المُسجلة لمُعرَّفات المكونات الرقمية. يتم تضمينها مع البيانات "
+"الوصفية المودَعة وتستعمل لتسجيل الجهة التي قدمت الإيداع."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail"
+msgstr "البريد الالكتروني للمودِع"
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
+msgstr ""
+"عنوان البريد الالكتروني للفرد المسؤول عن تسجيل المحتوى في Crossref. يتم "
+"تضمينه مع البيانات الوصفية المودَعة ويستعمل عند إرسال رسالة تأكيد الإيداع."
+
+msgid "plugins.importexport.crossref.settings.form.depositorNameRequired"
+msgstr "يُرجى إدخال اسم المودِع."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
+msgstr "يُرجى إدخال البريد الالكتروني للمودِع."
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "اسم المستخدم"
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "رجاءًا، أدخل اسم المستخدم الذي حصلت عليه من Crossref."
+
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "فشِل"
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "فعال"
+
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "مؤشر بأنه فعال"
+
+msgid "plugins.importexport.crossref.action.register"
+msgstr "الإيداع"
+
+msgid "plugins.importexport.crossref.action.export"
+msgstr "تنزيل XML"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "التأشير بأنه فعال"
+
+msgid "plugins.generic.crossref.registrationAgency.name"
+msgstr "Crossref"
+
+msgid "plugins.importexport.crossref.settings"
+msgstr "إعدادات Crossref"
+
+msgid "plugins.importexport.crossref.settings.form.username.description"
+msgstr ""
+"اسم المستخدم في Crossref الذي سيتم استعماله للمصادقة على إيداعاتك. إذا كنت "
+"تستعمل بريدًا شخصيًا، أنظر النصيحة أعلاه."
+
+msgid "plugins.importexport.crossref.statusLegend"
+msgstr ""
+"\n"
+"\t\t<p>حالة الإيداع:</p>\n"
+"\t\t<p>\n"
+"\t\t- غير مُودَع: لم تحدث محاولة إيداع لمُعرَّف المكون الرقمي هذا.<br />\n"
+"\t\t- فعال: تم إيداع مُعرَّف المكون الرقمي، ويجري التعامل مع بشكل صائب.<br />"
+"\n"
+"\t\t- فشِل: فشلت عملية إيداع مُعرَّف المكون الرقمي.<br />\n"
+"\t\t- مؤشَّر بأنه فعال: تم تأشير مُعرَّف المكون الرقمي يدويًا بأنه فعال.\n"
+"\t\t</p>\n"
+"\t\t<p>يتم عرض حالة آخر محاولة إيداع فقط.</p>\n"
+"\t\t<p>إذا فشلت عملية الإيداع، يرجى حل المشكلة ثم محاولة تسجيل مُعرَّف "
+"المكون الرقمي مرة أخرى.</p>"
+
+msgid "plugins.generic.crossref.successMessage"
+msgstr ""
+"تم إيداع البيانات الوصفية لهذا العنصر في Crossref. لمعاينة المزيد من "
+"التفاصيل، أنظر طلب التقديم في <a href=\"https://doi.crossref.org/servlet/"
+"submissionAdmin?sf=detail&submissionID={$submissionId}\">لوحة مشرف "
+"Crossref</a>."
