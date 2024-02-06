@@ -108,6 +108,12 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      */
     public function getStatusMessage($request)
     {
+        // Application is set to sandbox mode and will not run the features of plugin
+        if (Config::getVar('general', 'sandbox', false)) {
+            error_log('Application is set to sandbox mode and will not have any interaction with crossref external service');
+            return __('common.sandbox');
+        }
+
         // if the failure occurred on request and the message was saved
         // return that message
         $submissionId = $request->getUserVar('submissionId');
@@ -341,6 +347,12 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
      */
     public function depositXML($object, $context, $filename)
     {
+        // Application is set to sandbox mode and will not run the features of plugin
+        if (Config::getVar('general', 'sandbox', false)) {
+            error_log('Application is set to sandbox mode and will not have any interaction with crossref external service');
+            return false;
+        }
+
         $status = null;
         $msgSave = null;
 
