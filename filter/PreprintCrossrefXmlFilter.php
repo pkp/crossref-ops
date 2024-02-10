@@ -221,8 +221,8 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         // Titles
         $titlesNode = $doc->createElementNS($deployment->getNamespace(), 'titles');
-        $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'title', $publication->getLocalizedTitle($submission->getLocale(), 'html')));
-        if ($subtitle = $publication->getLocalizedSubTitle($submission->getLocale(), 'html')) {
+        $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'title', $publication->getLocalizedTitle($submission->getData('locale'), 'html')));
+        if ($subtitle = $publication->getLocalizedSubTitle($submission->getData('locale'), 'html')) {
             $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'subtitle', $subtitle));
         }
         $postedContentNode->appendChild($titlesNode);
@@ -265,7 +265,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         // DOI data
         $dispatcher = $this->_getDispatcher($request);
-        $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getBestId(), 'version', $publication->getId()], null, null, true);
+        $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getCurrentPublication()->getData('urlPath') ?? $submission->getId(), 'version', $publication->getId()], null, null, true);
         $postedContentNode->appendChild($this->createDOIDataNode($doc, $publication->getDoi(), $url));
 
         return $postedContentNode;
