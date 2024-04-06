@@ -1,2 +1,44 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2024-04-07 12:39+0000\n"
+"Last-Translator: Germán Huélamo Bautista <germanhuelamo@gmail.com>\n"
+"Language-Team: French <http://translate.pkp.sfu.ca/projects/plugins/"
+"ops-crossref-importexport-plugin/fr_FR/>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "plugins.importexport.crossref.displayName"
+msgstr "Module d'exportation Crossref XML"
+
+msgid "plugins.generic.crossref.displayName"
+msgstr "Module de gestion de Crossref"
+
+msgid "plugins.importexport.crossref.requirements"
+msgstr "Exigences"
+
+msgid "plugins.importexport.crossref.requirements.satisfied"
+msgstr "Toutes les exigences du module sont satisfaites."
+
+msgid "plugins.importexport.crossref.settings.depositorIntro"
+msgstr "Les éléments suivants sont requis pour un dépôt Crossref réussi."
+
+msgid "plugins.importexport.crossref.settings.form.depositorName"
+msgstr "Nom du déposant"
+
+msgid "plugins.importexport.crossref.settings.form.depositorName.description"
+msgstr ""
+"Nom de l'organisation qui enregistre les DOI. Il est inclus dans les "
+"métadonnées du dépôt et sert à enregistrer l'identité du déposant."
+
+msgid "plugins.importexport.crossref.description"
+msgstr "Exporter les métadonnées de la prépublication au format Crossref XML."
+
+msgid "plugins.importexport.crossref.error.noDOIContentObjects"
+msgstr ""
+"Aucune prépublication n'ayant été sélectionnée pour l'attribution d'un DOI, "
+"il est impossible de déposer ou d'exporter quoi que ce soit à l'aide de ce "
+"module."
