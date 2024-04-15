@@ -265,7 +265,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         // DOI data
         $dispatcher = $this->_getDispatcher($request);
-        $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getCurrentPublication()->getData('urlPath') ?? $submission->getId(), 'version', $publication->getId()], null, null, true);
+        $url = $dispatcher->url($request, Application::ROUTE_PAGE, null, 'preprint', 'view', [$submission->getCurrentPublication()->getData('urlPath') ?? $submission->getId(), 'version', $publication->getId()], null, null, true, '');
         $postedContentNode->appendChild($this->createDOIDataNode($doc, $publication->getDoi(), $url));
 
         return $postedContentNode;
