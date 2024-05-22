@@ -159,7 +159,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         // contributors
         $authors = $publication->getData('authors');
-        if (!empty($authors)) {
+        if ($authors->count() != 0) {
             $contributorsNode = $doc->createElementNS($deployment->getNamespace(), 'contributors');
 
             $isFirst = true;
@@ -221,9 +221,11 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         // Titles
         $titlesNode = $doc->createElementNS($deployment->getNamespace(), 'titles');
-        $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'title', $publication->getLocalizedTitle($submission->getData('locale'), 'html')));
+        $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'title'));
+        $node->appendChild($doc->createTextNode($publication->getLocalizedTitle($submission->getData('locale'), 'html')));
         if ($subtitle = $publication->getLocalizedSubTitle($submission->getData('locale'), 'html')) {
-            $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'subtitle', $subtitle));
+            $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'subtitle'));
+            $node->appendChild($doc->createTextNode($publication->getLocalizedTitle($subtitle, 'html')));
         }
         $postedContentNode->appendChild($titlesNode);
 
@@ -231,7 +233,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $postedContentNode->appendChild($this->createPostedDateNode($doc, $publication->getData('datePublished')));
 
         // abstract
-        $abstracts = $publication->getData('abstract');
+        $abstracts = $publication->getData('abstract') ?: [];
         foreach($abstracts as $lang => $abstract) {
             $abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
             $abstractNode->setAttributeNS($deployment->getXMLNamespace(), 'xml:lang', LocaleConversion::getIso1FromLocale($lang));
