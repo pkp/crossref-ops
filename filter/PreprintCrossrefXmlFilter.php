@@ -224,7 +224,8 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'title'));
         $node->appendChild($doc->createTextNode($publication->getLocalizedTitle($submission->getLocale(), 'html')));
         if ($subtitle = $publication->getLocalizedSubTitle($submission->getLocale(), 'html')) {
-            $titlesNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'subtitle', $subtitle));
+            $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'subtitle'));
+            $node->appendChild($doc->createTextNode($subtitle));
         }
         $postedContentNode->appendChild($titlesNode);
 
