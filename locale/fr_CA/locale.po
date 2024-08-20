@@ -1,2 +1,88 @@
 msgid ""
-msgstr "X-Generator: Weblate\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit"
+msgstr ""
+"PO-Revision-Date: 2024-08-21 17:40+0000\n"
+"Last-Translator: Pierre Lasou <pierre.lasou@bibl.ulaval.ca>\n"
+"Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/plugins/"
+"ops-crossref-importexport-plugin/fr_CA/>\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+#, fuzzy
+msgid "plugins.importexport.crossref.error.noDOIContentObjects"
+msgstr ""
+"Les prépublications ne sont pas sélectionnées pour l'attribution de DOI dans "
+"le plugiciel DOI, il n'y a a donc pas de possibilités de dépôt ou "
+"d'exportation avec ce plugiciel."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
+msgstr ""
+"Adresse courriel de la personne responsable de l'enregistrement du contenu "
+"avec Crossref. Elle est incluse dans les dépôts de métadonnées et utilisée "
+"lors de l'envoi des confirmations de dépôt."
+
+msgid "plugins.importexport.crossref.displayName"
+msgstr "Plugiciel d'exportation en format XML Crossref"
+
+msgid "plugins.generic.crossref.description"
+msgstr "Gère le dépôt et l'exportation des métadonnées Crossref"
+
+msgid "plugins.importexport.crossref.requirements"
+msgstr "Exigences"
+
+msgid "plugins.importexport.crossref.requirements.satisfied"
+msgstr "Toutes les exigences du plugiciels sont remplies."
+
+msgid "plugins.importexport.crossref.settings.form.depositorName"
+msgstr "Nom du déposant"
+
+msgid "plugins.importexport.crossref.settings.form.depositorName.description"
+msgstr ""
+"Nom de l'organisation qui enregistre les DOI. Il est ajouté dans les dépôts "
+"de métadonnées et utilisé pour identifier qui a soumis le dépôt."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail"
+msgstr "Courriel du déposant"
+
+msgid "plugins.importexport.crossref.settings.form.depositorNameRequired"
+msgstr "S'il vous plaît, fournissez le nom du déposant."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
+msgstr "S'il vous plaît, fournissez le courriel du déposant."
+
+msgid "plugins.importexport.crossref.description"
+msgstr "Exporter les métadonnées de la prépublication en format XML Crossref."
+
+msgid "plugins.importexport.crossref.settings.depositorIntro"
+msgstr ""
+"Les éléments suivants sont requis afin de réaliser le dépôt dans Crossref."
+
+msgid "plugins.importexport.crossref.registrationIntro"
+msgstr ""
+"<p>Si vous souhaitez utiliser ce plugiciel afin d'enregistrer des DOI "
+"directement avec <a href=\"http://www.crossref.org/\">Crossref</a>, vous "
+"devez ajouter vos <a href=\"https://www.crossref.org/documentation/"
+"member-setup/account-credentials/\">identifiants Crossref</a> dans les "
+"champs utilisateurs et mot de passe ci-dessous.</p><p>Selon votre type "
+"d'adhésion à Crossref, il y a 2 façons d'entrer votre nom d'utilisateur et "
+"votre mot de passe : </p><ul><li>Si vous utilisez un compte organisationnel, "
+"ajouter votre <a href=\"https://www.crossref.org/documentation/member-setup/"
+"account-credentials/#00376\">nom d'utilisateur et mot de passe partagés</a></"
+"li><li>Si vous utilisez un <a href=\"https://www.crossref.org/documentation/"
+"member-setup/account-credentials/#00368\">compte personnel</a>, inscrivez "
+"votre adresse courriel et le rôle dans le champ nom d'utilisateur. Le nom "
+"d'utilisateur doit ressembler à cela : email@example.com/role</li><li>Si "
+"vous ne connaissez pas ou n'avait pas accès à vos identifiants Crossref, "
+"contactez le <a href=\"https://support.crossref.org/\">service de soutien "
+"Crossref</a>. Sans identifiants, vous pouvez tout de même exporter les "
+"métadonnées dans le format XML de Crossref, mais vous ne pourrez pas "
+"enregistrer vos DOI avec Crossref à partir d'OPS.</li></ul>"
+
+msgid "plugins.importexport.crossref.settings"
+msgstr "Configurations Crossref"
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "Nom d'utilisateur"
