@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-05-07 12:34+0000\n"
+"PO-Revision-Date: 2024-08-02 07:00+0000\n"
 "Last-Translator: Mirko Spiroski <mspiroski@id-press.eu>\n"
 "Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/mk/>\n"
@@ -167,8 +167,8 @@ msgstr ""
 
 msgid "plugins.importexport.crossref.issues.description"
 msgstr ""
-"За експорт/регистрација ќе се земат предвид само изданија (а не нивните "
-"препринти)."
+"Забелешка: За експорт/регистрација ќе се земат предвид само изданија (а не "
+"нивните препринти)."
 
 msgid "plugins.importexport.crossref.statusLegend"
 msgstr ""
