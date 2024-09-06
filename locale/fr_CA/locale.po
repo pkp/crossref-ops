@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-08-21 17:40+0000\n"
+"PO-Revision-Date: 2024-09-07 04:24+0000\n"
 "Last-Translator: Pierre Lasou <pierre.lasou@bibl.ulaval.ca>\n"
 "Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/fr_CA/>\n"
@@ -86,3 +86,37 @@ msgstr "Configurations Crossref"
 
 msgid "plugins.importexport.crossref.settings.form.username"
 msgstr "Nom d'utilisateur"
+
+msgid "plugins.importexport.crossref.settings.form.username.description"
+msgstr ""
+"Le nom d'utilisateur Crossref qui sera utilisé pour l'authentification de "
+"vos dépôts. Si vous utilisez un compte personnel, consultez le conseil ci-"
+"dessus."
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr ""
+"S'il vous plait, inscrivez le nom d'utilisateur qui vous a été fourni par "
+"Crossref."
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "Actif"
+
+msgid "plugins.importexport.crossref.action.export"
+msgstr "Télécharger le XML"
+
+msgid "plugins.importexport.crossref.register.error.mdsError"
+msgstr ""
+"L'enregistrement n'a pas été effectué. Le serveur d'enregistrement de DOI a "
+"renvoyé une erreur."
+
+msgid "plugins.importexport.crossref.register.success.warning"
+msgstr ""
+"L'enregistrement a bien été effectué, mais l'avertissement suivant s'est "
+"produit: '{$param}'."
+
+msgid "plugins.importexport.crossref.export.error.issueNotFound"
+msgstr ""
+"Aucun numéro ne correspond à l'identifiant de numéro spécifié \"{$issueId}\"."
+
+msgid "plugins.generic.crossref.registrationAgency.name"
+msgstr "Crossref"
