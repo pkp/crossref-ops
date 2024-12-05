@@ -18,7 +18,6 @@ use APP\core\Application;
 use APP\plugins\generic\crossref\CrossrefExportDeployment;
 use APP\publication\Publication;
 use DOMDocument;
-use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
 
 class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\NativeExportFilter
@@ -155,7 +154,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
         $postedContentNode = $doc->createElementNS($deployment->getNamespace(), 'posted_content');
         $postedContentNode->setAttribute('type', 'preprint');
-        $postedContentNode->setAttribute('language', LocaleConversion::getIso1FromLocale($locale));
+        $postedContentNode->setAttribute('language', \Locale::getPrimaryLanguage($locale));
 
         // contributors
         $authors = $publication->getData('authors');
@@ -177,7 +176,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
 
                 // Check if both givenName and familyName is set for the submission language.
                 if (!empty($familyNames[$locale]) && !empty($givenNames[$locale])) {
-                    $personNameNode->setAttribute('language', LocaleConversion::getIso1FromLocale($locale));
+                    $personNameNode->setAttribute('language', \Locale::getPrimaryLanguage($locale));
                     $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
                     $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyNames[$locale]), ENT_COMPAT, 'UTF-8')));
 
@@ -195,7 +194,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
                             }
 
                             $nameNode = $doc->createElementNS($deployment->getNamespace(), 'name');
-                            $nameNode->setAttribute('language', LocaleConversion::getIso1FromLocale($otherLocal));
+                            $nameNode->setAttribute('language', \Locale::getPrimaryLanguage($otherLocal));
 
                             $nameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyName), ENT_COMPAT, 'UTF-8')));
                             if (isset($givenNames[$otherLocal]) && !empty($givenNames[$otherLocal])) {
@@ -236,7 +235,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $abstracts = $publication->getData('abstract') ?: [];
         foreach($abstracts as $lang => $abstract) {
             $abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
-            $abstractNode->setAttributeNS($deployment->getXMLNamespace(), 'xml:lang', LocaleConversion::getIso1FromLocale($lang));
+            $abstractNode->setAttributeNS($deployment->getXMLNamespace(), 'xml:lang', str_replace(['_', '@'], '-', $lang));
             $abstractNode->appendChild($doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
             $postedContentNode->appendChild($abstractNode);
         }
