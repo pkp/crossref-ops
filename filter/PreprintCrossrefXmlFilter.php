@@ -181,7 +181,10 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
                     $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyNames[$locale]), ENT_COMPAT, 'UTF-8')));
 
                     if ($author->getData('orcid')) {
-                        $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid')));
+                        $orcidNode = $doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid'));
+                        $orcidAuthenticated = $author->getData('orcidIsVerified') ? 'true' : 'false';
+                        $orcidNode->setAttribute('authenticated', $orcidAuthenticated);
+                        $personNameNode->appendChild($orcidNode);
                     }
 
                     $hasAltName = false;
