@@ -15,9 +15,11 @@
 namespace APP\plugins\generic\crossref\filter;
 
 use APP\core\Application;
+use APP\core\Request;
 use APP\plugins\generic\crossref\CrossrefExportDeployment;
 use APP\publication\Publication;
 use DOMDocument;
+use PKP\core\Dispatcher;
 use PKP\submission\PKPSubmission;
 
 class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\NativeExportFilter
@@ -90,7 +92,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createRootNode($doc)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $rootNode = $doc->createElementNS($deployment->getNamespace(), $deployment->getRootElementName());
         $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', $deployment->getXmlSchemaInstance());
@@ -111,7 +113,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createHeadNode($doc)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $context = $deployment->getContext();
         $plugin = $deployment->getPlugin();
@@ -146,7 +148,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     public function createPostedContentNode($doc, $publication, $submission)
     {
         assert($publication instanceof Publication);
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $request = Application::get()->getRequest();
 
@@ -180,13 +182,6 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
                     $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'given_name', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
                     $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($familyNames[$locale]), ENT_COMPAT, 'UTF-8')));
 
-                    if ($author->getData('orcid')) {
-                        $orcidNode = $doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid'));
-                        $orcidAuthenticated = $author->getData('orcidIsVerified') ? 'true' : 'false';
-                        $orcidNode->setAttribute('authenticated', $orcidAuthenticated);
-                        $personNameNode->appendChild($orcidNode);
-                    }
-
                     $hasAltName = false;
                     foreach ($familyNames as $otherLocal => $familyName) {
                         if ($otherLocal != $locale && isset($familyName) && !empty($familyName)) {
@@ -209,9 +204,13 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
                     }
                 } else {
                     $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'surname', htmlspecialchars(ucfirst($givenNames[$locale]), ENT_COMPAT, 'UTF-8')));
-                    if ($author->getData('orcid')) {
-                        $personNameNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid')));
-                    }
+                }
+
+                if ($author->getData('orcid')) {
+                    $orcidNode = $doc->createElementNS($deployment->getNamespace(), 'ORCID', $author->getData('orcid'));
+                    $orcidAuthenticated = $author->getData('orcidIsVerified') ? 'true' : 'false';
+                    $orcidNode->setAttribute('authenticated', $orcidAuthenticated);
+                    $personNameNode->appendChild($orcidNode);
                 }
 
                 $contributorsNode->appendChild($personNameNode);
@@ -326,7 +325,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createParentDoiNode($doc, $parentDoi)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $parentDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
         $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation', htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
@@ -347,7 +346,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createVorDoiNode($doc, $vorDoi)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $vorDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
         $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation', htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));
@@ -363,7 +362,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      *
      *
      */
-    protected function _getDispatcher(\APP\core\Request $request): \PKP\core\Dispatcher
+    protected function _getDispatcher(Request $request): Dispatcher
     {
         $dispatcher = $request->getDispatcher();
         if ($dispatcher === null) {
