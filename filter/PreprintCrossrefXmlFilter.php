@@ -20,6 +20,7 @@ use APP\plugins\generic\crossref\CrossrefExportDeployment;
 use APP\publication\Publication;
 use DOMDocument;
 use PKP\core\Dispatcher;
+use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
 
 class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\NativeExportFilter
@@ -257,7 +258,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $abstracts = $publication->getData('abstract') ?: [];
         foreach($abstracts as $lang => $abstract) {
             $abstractNode = $doc->createElementNS($deployment->getJATSNamespace(), 'jats:abstract');
-            $abstractNode->setAttributeNS($deployment->getXMLNamespace(), 'xml:lang', str_replace(['_', '@'], '-', $lang));
+            $abstractNode->setAttributeNS($deployment->getXMLNamespace(), 'xml:lang', LocaleConversion::toBcp47($lang));
             $abstractNode->appendChild($doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
             $postedContentNode->appendChild($abstractNode);
         }
