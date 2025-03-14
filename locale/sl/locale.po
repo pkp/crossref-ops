@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-03-08 03:17+0000\n"
+"Last-Translator: Matevž Rudolf <matevz.rudolf@uni-lj.si>\n"
+"Language-Team: Slovenian <http://translate.pkp.sfu.ca/projects/plugins/"
+"ops-crossref-importexport-plugin/sl/>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "plugins.generic.crossref.displayName"
+msgstr "Upravljavski vtičnik za Crossref"
+
+msgid "plugins.generic.crossref.description"
+msgstr "Upravlja z deponiranjem in izvozom Crossref metapodatkov"
+
+msgid "plugins.importexport.crossref.requirements"
+msgstr "Zahteve"
+
+msgid "plugins.importexport.crossref.requirements.satisfied"
+msgstr "Vse zahteve vtičnika so izpolnjene."
+
+msgid "plugins.importexport.crossref.settings.depositorIntro"
+msgstr "Za uspešen depozit v Crossref so potrebni naslednji elementi."
+
+msgid "plugins.importexport.crossref.settings.form.depositorName"
+msgstr "Ime depozitorja"
+
+msgid "plugins.importexport.crossref.settings.form.depositorName.description"
+msgstr ""
+"Ime organizacije, ki registrira DOI-je. Vključeno je v depozitirane "
+"metapodatke in se uporablja za zapis, kdo je oddal depozit."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail"
+msgstr "Email depozitorja"
+
+msgid "plugins.importexport.crossref.settings.form.depositorNameRequired"
+msgstr "Prosimo vnesite ime depozitorja."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
+msgstr "Prosimo vnesite e-poštni naslov depozitorja."
+
+msgid "plugins.importexport.crossref.settings"
+msgstr "Crossref nastavitve"
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "Uporabniško ime"
+
+msgid "plugins.importexport.crossref.settings.form.username.description"
+msgstr ""
+"Uporabniško ime Crossref, ki bo uporabljeno za avtorizacijo vaših depozitov. "
+"Če uporabljate osebni račun, glejte zgoraj navedena navodila."
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "Prosimo, vnesite uporabniško ime, ki ste ga prejeli od Crossref."
+
+msgid "plugins.importexport.crossref.displayName"
+msgstr "Vtičnik za Crossref XML izvoz"
+
+msgid "plugins.importexport.crossref.description"
+msgstr "Izvoz metapodatkov preprinta v Crossref XML format."
+
+msgid "plugins.importexport.crossref.error.noDOIContentObjects"
+msgstr ""
+"Preprinti niso izbrani za dodelitev DOI v vtičniku za javne identifikatorje "
+"DOI, zato v tem vtičniku ni možnosti za depozit ali izvoz."
+
+msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
+msgstr ""
+"Elektronski naslov osebe, odgovorne za registracijo vsebine pri Crossref. "
+"Vključen je v depozitirane metapodatke in se uporablja za pošiljanje "
+"potrditvenega e-poštnega sporočila o depozitu."
+
+msgid "plugins.importexport.crossref.registrationIntro"
+msgstr ""
+"<p>Če želite uporabiti ta vtičnik za neposredno registracijo digitalnih "
+"objektnih identifikatorjev (DOI) pri <a href=\"http://www.crossref.org/\""
+">Crossref</a>, boste morali v spodnja polja za uporabniško ime in geslo "
+"vstaviti svoje <a href=\"https://www.crossref.org/documentation/member-setup/"
+"account-credentials/\">Crossref poverilnice</a>.</p><p>Odvisno od vaše "
+"članstva pri Crossref obstajata dva načina za vnos uporabniškega imena in "
+"gesla:</p><ul><li>Če uporabljate organizacijski račun, vstavite svoje <a "
+"href=\"https://www.crossref.org/documentation/member-setup/"
+"account-credentials/#00376\">skupno uporabniško ime in geslo</a></li><li>Če "
+"uporabljate <a href=\"https://www.crossref.org/documentation/member-setup/"
+"account-credentials/#00368\">osebni račun</a>, v polje za uporabniško ime "
+"vnesite svojo elektronsko pošto in vlogo. Uporabniško ime bo izgledalo tako: "
+"email@example.com/vloga</li><li>Če ne veste ali nimate dostopa do svojih "
+"Crossref poverilnic, se lahko obrnete na <a href=\"https://support.crossref."
+"org/\">Crossref podporo</a> za pomoč. Brez poverilnic lahko še vedno "
+"izvozite metapodatke v Crossref XML format, vendar svojih DOI-jev ne morete "
+"registrirati pri Crossref iz OPS.</li></ul>"
