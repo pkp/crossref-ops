@@ -271,13 +271,6 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
             $postedContentNode->appendChild($licenseNode);
         }
 
-        // version info
-        if ($publication->getData('version')) {
-            $versionInfoNode = $doc->createElementNS($deployment->getNamespace(), 'version_info');
-            $versionInfoNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'version', htmlspecialchars($publication->getData('version'), ENT_COMPAT, 'UTF-8')));
-            $postedContentNode->appendChild($versionInfoNode);
-        }
-
         // DOI relations: if this version has a vorDoi or different DOI than the current publication (ie. versions and DOI versioning exits), add a relation node
         $parentDoi = $submission->getCurrentPublication()->getDoi() && $submission->getCurrentPublication()->getDoi() != $publication->getDoi() ? $submission->getCurrentPublication()->getDoi() : '';
         $vorDoi = $publication->getData('vorDoi') ? $publication->getData('vorDoi') : '';
