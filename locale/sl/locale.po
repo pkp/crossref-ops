@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-03-08 03:17+0000\n"
+"PO-Revision-Date: 2025-03-27 11:24+0000\n"
 "Last-Translator: Matevž Rudolf <matevz.rudolf@uni-lj.si>\n"
 "Language-Team: Slovenian <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/sl/>\n"
@@ -94,3 +94,15 @@ msgstr ""
 "org/\">Crossref podporo</a> za pomoč. Brez poverilnic lahko še vedno "
 "izvozite metapodatke v Crossref XML format, vendar svojih DOI-jev ne morete "
 "registrirati pri Crossref iz OPS.</li></ul>"
+
+msgid "plugins.importexport.crossref.register.success.warning"
+msgstr "Registracija je bila uspešna, a z naslednjim opozorilom: '{$param}'."
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "Aktivno"
+
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "Označeno aktivno"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "Označi aktivno"
