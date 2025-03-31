@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-03-27 11:24+0000\n"
+"PO-Revision-Date: 2025-03-31 13:30+0000\n"
 "Last-Translator: Matevž Rudolf <matevz.rudolf@uni-lj.si>\n"
 "Language-Team: Slovenian <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/sl/>\n"
@@ -106,3 +106,25 @@ msgstr "Označeno aktivno"
 
 msgid "plugins.importexport.crossref.action.markRegistered"
 msgstr "Označi aktivno"
+
+msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
+msgstr ""
+"OPS bo dodeljene DOI-je samodejno posredoval v Crossref. Upoštevajte, da "
+"lahko obdelava traja nekaj časa po objavi (npr. odvisno od konfiguracije "
+"vašega cron opravila). Lahko preverite vse neregistrirane DOI-je."
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Preverite veljavnost XML. Uporabite to možnost za prenos XML-ja za ročno "
+"registracijo DOI."
+
+msgid "plugins.importexport.crossref.issues.description"
+msgstr ""
+"Opomba: Za izvoz/registracijo bodo upoštevane samo številke revije, ne pa "
+"njihovi predprinti."
+
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Neuspešno"
+
+msgid "plugins.importexport.crossref.action.register"
+msgstr "Deponiraj"
