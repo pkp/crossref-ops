@@ -42,7 +42,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     /**
      * @see Filter::process()
      *
-     * @param array $pubObjects array Array of Issues or Submissions
+     * @param array $pubObjects Array of Issues or Submissions
      *
      * @return \DOMDocument
      */
@@ -119,7 +119,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $context = $deployment->getContext();
         $plugin = $deployment->getPlugin();
         $headNode = $doc->createElementNS($deployment->getNamespace(), 'head');
-        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('initials', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
+        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('acronym', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
         $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'timestamp', date('YmdHisv')));
         $depositorNode = $doc->createElementNS($deployment->getNamespace(), 'depositor');
         $depositorName = $plugin->getSetting($context->getId(), 'depositorName');
@@ -271,7 +271,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
             $postedContentNode->appendChild($licenseNode);
         }
 
-        // DOI relations: if this version has a vorDoi or different DOI than the current publication (ie. versions and DOI versioning exits), add a relation node
+        // DOI relations: if this version has a vorDoi or different DOI than the current publication (i.e. versions and DOI versioning exits), add a relation node
         $parentDoi = $submission->getCurrentPublication()->getDoi() && $submission->getCurrentPublication()->getDoi() != $publication->getDoi() ? $submission->getCurrentPublication()->getDoi() : '';
         $vorDoi = $publication->getData('vorDoi') ? $publication->getData('vorDoi') : '';
 
