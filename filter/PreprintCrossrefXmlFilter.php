@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/crossref/filter/PreprintCrossrefXmlFilter.php
  *
- * Copyright (c) 2014-2022 Simon Fraser University
- * Copyright (c) 2000-2022 John Willinsky
+ * Copyright (c) 2014-2025 Simon Fraser University
+ * Copyright (c) 2000-2025 John Willinsky
  * Distributed under The MIT License. For full terms see the file LICENSE.
  *
  * @class PreprintCrossrefXmlFilter
@@ -40,7 +40,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     /**
      * @see Filter::process()
      *
-     * @param array $pubObjects array Array of Issues or Submissions
+     * @param array $pubObjects Array of Issues or Submissions
      *
      * @return \DOMDocument
      */
@@ -91,7 +91,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createRootNode($doc)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $rootNode = $doc->createElementNS($deployment->getNamespace(), $deployment->getRootElementName());
         $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xsi', $deployment->getXmlSchemaInstance());
@@ -112,12 +112,12 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createHeadNode($doc)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $context = $deployment->getContext();
         $plugin = $deployment->getPlugin();
         $headNode = $doc->createElementNS($deployment->getNamespace(), 'head');
-        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('initials', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
+        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('acronym', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
         $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'timestamp', date('YmdHisv')));
         $depositorNode = $doc->createElementNS($deployment->getNamespace(), 'depositor');
         $depositorName = $plugin->getSetting($context->getId(), 'depositorName');
@@ -147,7 +147,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     public function createPostedContentNode($doc, $publication, $submission)
     {
         assert($publication instanceof Publication);
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $request = Application::get()->getRequest();
 
@@ -249,7 +249,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
             $postedContentNode->appendChild($licenseNode);
         }
 
-        // DOI relations: if this version has a vorDoi or different DOI than the current publication (ie. versions and DOI versioning exits), add a relation node
+        // DOI relations: if this version has a vorDoi or different DOI than the current publication (i.e. versions and DOI versioning exits), add a relation node
         $parentDoi = $submission->getCurrentPublication()->getDoi() && $submission->getCurrentPublication()->getDoi() != $publication->getDoi() ? $submission->getCurrentPublication()->getDoi() : '';
         $vorDoi = $publication->getData('vorDoi') ? $publication->getData('vorDoi') : '';
 
@@ -324,7 +324,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createParentDoiNode($doc, $parentDoi)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $parentDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
         $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation', htmlspecialchars($parentDoi, ENT_COMPAT, 'UTF-8'));
@@ -345,7 +345,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
      */
     public function createVorDoiNode($doc, $vorDoi)
     {
-        /** @var CrossrefExportDeployment */
+        /** @var CrossrefExportDeployment $deployment */
         $deployment = $this->getDeployment();
         $vorDoiNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
         $intraWorkRelationNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:intra_work_relation', htmlspecialchars($vorDoi, ENT_COMPAT, 'UTF-8'));
