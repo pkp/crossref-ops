@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-08-18 19:09+0000\n"
+"PO-Revision-Date: 2025-09-01 14:43+0000\n"
 "Last-Translator: Express2120+ <mirouxmmp111@gmail.com>\n"
 "Language-Team: French <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/fr/>\n"
@@ -165,7 +165,6 @@ msgstr ""
 "exporter des métadonnées au format XML Crossref, mais vous ne pouvez pas "
 "enregistrer vos DOI auprès de Crossref depuis OPS.</li></ul>"
 
-#, fuzzy
 msgid "plugins.importexport.crossref.statusLegend"
 msgstr ""
 "\n"
