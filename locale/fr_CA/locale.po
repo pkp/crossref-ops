@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-09-07 04:24+0000\n"
-"Last-Translator: Pierre Lasou <pierre.lasou@bibl.ulaval.ca>\n"
+"PO-Revision-Date: 2025-08-29 16:11+0000\n"
+"Last-Translator: Nicolas Dickner <dickner.nicolas@uqam.ca>\n"
 "Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/fr_CA/>\n"
 "Language: fr_CA\n"
@@ -120,3 +120,73 @@ msgstr ""
 
 msgid "plugins.generic.crossref.registrationAgency.name"
 msgstr "Crossref"
+
+msgid "plugins.generic.crossref.displayName"
+msgstr "Plugiciel de gestion Crossref"
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Validation XML. Utiliser cette option pour le téléversement du XML pour "
+"l'enregistrement manuel du DOI."
+
+msgid "plugins.importexport.crossref.issues.description"
+msgstr ""
+"Note: seuls les numéros (et non leur prépublications) seront pris en "
+"considération lors de l'exportation / enregistrement."
+
+msgid "plugins.importexport.crossref.statusLegend"
+msgstr ""
+"\n"
+"\t\t<p>Statuts de dépôt</p>\n"
+"\t\t<p>\n"
+"\t\t- Non déposé: aucune tentative de dépôt n'a été faite pour ce DOI.<br />"
+"\n"
+"\t\t- Actif: le DOI a été déposé et est correctement résolu.<br />\n"
+"\t\t- Échec: le dépôt du DOI a échoué.<br />\n"
+"\t\t- Marqué actif: le DOI a été manuellement marqué comme actif.\n"
+"\t\t</p>\n"
+"\t\t<p>Seul le statut de la dernière tentative de dépôt est affiché.</p>\n"
+"\t\t<p>Si un dépôt a échoué, veuillez résoudre le problème et tenter "
+"d'enregistrer le DOI à nouveau.</p>"
+
+#, fuzzy
+msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
+msgstr ""
+"OPS déposera automatiquement chez Crossref les DOI assignés. Veuillez noter "
+"qu'un court délai de traitement pourrait être nécessaire après la "
+"publication (dépendant de la configuration de vos tâches cron, par exemple). "
+"Vous pouvez vérifier l'état de tous les DOI non enregistrés."
+
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Échec"
+
+#, fuzzy
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "Marqué actif"
+
+msgid "plugins.importexport.crossref.action.register"
+msgstr "Déposer"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "Marquer actif"
+
+msgid "plugins.importexport.crossref.senderTask.name"
+msgstr "Tâche d'enregistrement automatique Crossref"
+
+msgid "plugins.importexport.crossref.cliUsage"
+msgstr ""
+"Utilisation:\n"
+"{$scriptName} {$pluginName} export [xmlFileName] [server_path] preprints "
+"objectId1 [objectId2] ...\n"
+"{$scriptName} {$pluginName} register [server_path] preprints objectId1 "
+"[objectId2] ...\n"
+
+msgid "plugins.importexport.crossref.export.error.preprintNotFound"
+msgstr "Aucune prépublication avec l'identifiant \"{$preprintId}\"."
+
+msgid "plugins.generic.crossref.successMessage"
+msgstr ""
+"Les métadonnées de cet élément ont été déposées auprès de Crossref. Pour "
+"voir plus de détails, consulter la soumission dans le <a href=\"https://doi."
+"crossref.org/servlet/submissionAdmin?sf=detail&submissionID={$submissionId}\""
+">panneau d'administration de Crossref</a>."
