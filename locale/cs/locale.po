@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-01-14 09:39+0000\n"
+"PO-Revision-Date: 2026-03-27 10:19+0000\n"
 "Last-Translator: Jiří Dlouhý <jiri.dlouhy@czp.cuni.cz>\n"
 "Language-Team: Czech <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/cs/>\n"
@@ -71,8 +71,8 @@ msgstr "Neúspěšný"
 
 msgid "plugins.importexport.crossref.issues.description"
 msgstr ""
-"Poznámka: Pro export/registraci zde budou brána v úvahu pouze čísla (nikoli "
-"jejich preprinty)."
+"Poznámka: Pro účely exportu/registrace zde budou zohledněny pouze čísla (a "
+"nikoliv jejich preprinty)."
 
 msgid "plugins.importexport.crossref.settings.form.validation"
 msgstr ""
