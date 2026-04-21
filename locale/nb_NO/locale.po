@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-29 10:25+0000\n"
-"Last-Translator: Jan Erik Frantsvåg <jan.e.frantsvag@uit.no>\n"
+"PO-Revision-Date: 2026-04-21 14:09+0000\n"
+"Last-Translator: Eirik Hanssen <eirikh@oslomet.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
 "plugins/ops-crossref-importexport-plugin/nb_NO/>\n"
 "Language: nb_NO\n"
@@ -20,13 +20,11 @@ msgstr ""
 msgid "plugins.generic.crossref.displayName"
 msgstr "Crossref Manager Plugin"
 
-#, fuzzy
 msgid "plugins.generic.crossref.description"
-msgstr "Håndterer deponering og eksportering av Crossref metadata"
+msgstr "Deponerer og eksporterer Crossref-metadata"
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings"
-msgstr "Crossref innstillinger"
+msgstr "Crossref-innstillinger"
 
 msgid "plugins.importexport.crossref.description"
 msgstr "Eksporter preprint metadata i Crossref XML-format."
@@ -56,25 +54,22 @@ msgstr "Vennligst skriv inn opplasters navn."
 msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
 msgstr "Vennligst skriv inn opplasters e-post."
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings.depositorIntro"
-msgstr "Følgende er nødvendig for en vellykket Crossref-deponering."
+msgstr "Følgende deler er nødvendig for en vellykket Crossref-deponering."
 
 msgid "plugins.importexport.crossref.action.register"
 msgstr "Deponer"
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings.form.depositorName.description"
 msgstr ""
-"Navn på organisasjonen som registrerer DOI-ene. Det inngår i deponerte "
+"Navn på organisasjonen som registrerer DOI-ene. Dette inkluderes i deponerte "
 "metadata og brukes til å registrere hvem som utførte deponeringen."
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
 msgstr ""
 "E-postadressen til den personen som er ansvarlig for å registrere innhold "
-"hos Crossref. Den inngår i de innsendte metadataene og brukes når man sender "
-"e-postbekreftelsen på deponeringen."
+"hos Crossref. Den inkluderes i de innsendte metadataene og brukes til å "
+"sende e-postbekreftelsen på deponeringen."
 
 msgid "plugins.generic.crossref.registrationAgency.name"
 msgstr "Crossref"
@@ -88,4 +83,4 @@ msgstr ""
 "adminpanel</a>."
 
 msgid "plugins.importexport.crossref.displayName"
-msgstr "Programutvidelse for Crossref XML-eksport"
+msgstr "Crossref XML eksport-programtillegg"
