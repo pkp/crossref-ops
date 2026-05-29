@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-04-21 14:09+0000\n"
-"Last-Translator: Eirik Hanssen <eirikh@oslomet.no>\n"
+"PO-Revision-Date: 2026-05-29 13:05+0000\n"
+"Last-Translator: Amalie Ask <amalie.v.ask@uit.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
 "plugins/ops-crossref-importexport-plugin/nb_NO/>\n"
 "Language: nb_NO\n"
@@ -74,7 +74,6 @@ msgstr ""
 msgid "plugins.generic.crossref.registrationAgency.name"
 msgstr "Crossref"
 
-#, fuzzy
 msgid "plugins.generic.crossref.successMessage"
 msgstr ""
 "Metadata for dette elementet har blitt deponert hos Crossref. For å se "
@@ -84,3 +83,9 @@ msgstr ""
 
 msgid "plugins.importexport.crossref.displayName"
 msgstr "Crossref XML eksport-programtillegg"
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "Skriv inn brukernavnet du fikk fra Crossref."
+
+msgid "plugins.importexport.crossref.senderTask.name"
+msgstr "Crossrefs automatiske registreringsjobb"
