@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-06-04 16:25+0000\n"
+"PO-Revision-Date: 2026-06-05 16:32+0000\n"
 "Last-Translator: Helgi Sigurbjörnsson <helgi.sigurbjornsson@landsbokasafn.is>"
 "\n"
 "Language-Team: Icelandic <http://translate.pkp.sfu.ca/projects/plugins/"
@@ -58,3 +58,63 @@ msgstr "Notandanafn"
 
 msgid "plugins.importexport.crossref.requirements.satisfied"
 msgstr "Öllum kröfum viðbótar hefur verið mætt."
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "Vinsamlegast sláðu inn notandanafnið sem þú fékkst frá Crossref."
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Staðfesta XML. Notaður þennan valkost við niðurhal XML-skjals fyrir "
+"handvirka DOI-skráningu."
+
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Mistókst"
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "Virkt"
+
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "Merkt virkt"
+
+msgid "plugins.importexport.crossref.action.register"
+msgstr "Skila inn"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "Merkja virkt"
+
+msgid "plugins.importexport.crossref.senderTask.name"
+msgstr "Crossref sjálfvirkt skráningarverk"
+
+msgid "plugins.importexport.crossref.register.error.mdsError"
+msgstr "Skráning tókst ekki að fullu! DOI-skráningarþjónninn skilaði villu."
+
+msgid "plugins.importexport.crossref.register.success.warning"
+msgstr "Skráning tókst en eftirfarandi viðvörun átti sér stað: '{$param}'."
+
+msgid "plugins.importexport.crossref.export.error.issueNotFound"
+msgstr "Ekkert tölublað fannst með tilgreinda tölublaðsauðkennið „{$issueId}“."
+
+msgid "plugins.generic.crossref.registrationAgency.name"
+msgstr "Crossref"
+
+msgid "plugins.importexport.crossref.statusLegend"
+msgstr ""
+"\n"
+"\t\t<p>Staða skila:</p>\n"
+"\t\t<p>\n"
+"\t\t- Ekki skilað inn: engin tilraun hefur verið gerð til að skila þessu DOI-"
+"auðkenni.<br />\n"
+"\t\t- Virkt: DOI-auðkenninu hefur verið skilað inn og það vísar rétt.<br />\n"
+"\t\t- Mistókst: DOI-skilin mistókust.<br />\n"
+"\t\t- Merkt virkt: DOI-auðkennið var handvirkt merkt sem virkt.\n"
+"\t\t</p>\n"
+"\t\t<p>Aðeins staða síðustu skilatilraunar er birt.</p>\n"
+"\t\t<p>Ef skil hafa mistekist skaltu leysa vandamálið og reyna aftur að skrá "
+"DOI-auðkennið.</p>"
+
+msgid "plugins.generic.crossref.successMessage"
+msgstr ""
+"Lýsigögnum fyrir þetta atriði hefur verið skilað inn til Crossref. Nánari "
+"upplýsingar má sjá í innsendingunni á <a href=\"https://doi.crossref.org/"
+"servlet/submissionAdmin?sf=detail&submissionID={$submissionId}\">stjórnborði "
+"Crossref</a>."
