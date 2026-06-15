@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-05-29 13:05+0000\n"
-"Last-Translator: Eirik Hanssen <eirikh@oslomet.no>\n"
+"PO-Revision-Date: 2026-06-15 12:39+0000\n"
+"Last-Translator: Anne-Inger <annrag@oslomet.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
 "plugins/ops-crossref-importexport-plugin/nb_NO/>\n"
 "Language: nb_NO\n"
@@ -118,3 +118,45 @@ msgstr "Marker aktiv"
 msgid "plugins.importexport.crossref.register.success.warning"
 msgstr ""
 "Registreringen var vellykket, men følgende advarsel ble gitt: '{$param}'."
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "Brukernavn"
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Valider XML. Bruk dette alternativet for XML-nedlasting i forbindelse med "
+"manuell DOI-registrering."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.issues.description"
+msgstr ""
+"Merk: Kun utgaver (men ikke forhåndsutgaver) vil bli vurdert for eksport/"
+"registrering her."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Mislyktes"
+
+msgid "plugins.importexport.crossref.action.export"
+msgstr "Last ned XML"
+
+#, fuzzy
+msgid "plugins.importexport.crossref.register.error.mdsError"
+msgstr ""
+"Registreringen var ikke helt vellykket! DOI-registreringsserveren returnerte "
+"en feil."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.export.error.issueNotFound"
+msgstr "Ingen nummer samsvarte med den angitte nummer-ID-en «{$issueId}»."
+
+msgid "plugins.importexport.crossref.export.error.preprintNotFound"
+msgstr ""
+"Ingen preprint samsvarte med den angitte preprint-ID-en «{$preprintId}»."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
+msgstr ""
+"OPS vil automatisk deponere tildelte DOI-er i Crossref. Vær oppmerksom på at "
+"behandlingstiden etter publisering er kort (f.eks. avhengig av cronjob-"
+"konfigurasjonen din). Du kan søke etter alle uregistrerte DOI-er."
