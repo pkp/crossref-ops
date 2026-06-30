@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-03-27 10:19+0000\n"
+"PO-Revision-Date: 2026-06-26 10:59+0000\n"
 "Last-Translator: Jiří Dlouhý <jiri.dlouhy@czp.cuni.cz>\n"
 "Language-Team: Czech <http://translate.pkp.sfu.ca/projects/plugins/"
 "ops-crossref-importexport-plugin/cs/>\n"
@@ -133,7 +133,7 @@ msgstr "Následující položky je třeba pro úspěšné uložení do Crossref.
 
 msgid "plugins.importexport.crossref.error.noDOIContentObjects"
 msgstr ""
-"Nejsou vybrány články pro přiřazení veřejných identifikátorů DOI, takže v "
+"Nejsou vybrány preprinty pro přiřazení veřejných identifikátorů DOI, takže v "
 "tomto pluginu není žádná možnost uložení nebo exportu."
 
 msgid "plugins.importexport.crossref.requirements.satisfied"
