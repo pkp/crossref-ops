@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-29 10:25+0000\n"
-"Last-Translator: Jan Erik Frantsvåg <jan.e.frantsvag@uit.no>\n"
+"PO-Revision-Date: 2026-06-15 12:39+0000\n"
+"Last-Translator: Anne-Inger <annrag@oslomet.no>\n"
 "Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/"
 "plugins/ops-crossref-importexport-plugin/nb_NO/>\n"
 "Language: nb_NO\n"
@@ -20,13 +20,11 @@ msgstr ""
 msgid "plugins.generic.crossref.displayName"
 msgstr "Crossref Manager Plugin"
 
-#, fuzzy
 msgid "plugins.generic.crossref.description"
-msgstr "Håndterer deponering og eksportering av Crossref metadata"
+msgstr "Deponerer og eksporterer Crossref-metadata"
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings"
-msgstr "Crossref innstillinger"
+msgstr "Crossref-innstillinger"
 
 msgid "plugins.importexport.crossref.description"
 msgstr "Eksporter preprint metadata i Crossref XML-format."
@@ -56,30 +54,26 @@ msgstr "Vennligst skriv inn opplasters navn."
 msgid "plugins.importexport.crossref.settings.form.depositorEmailRequired"
 msgstr "Vennligst skriv inn opplasters e-post."
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings.depositorIntro"
-msgstr "Følgende er nødvendig for en vellykket Crossref-deponering."
+msgstr "Følgende deler er nødvendig for en vellykket Crossref-deponering."
 
 msgid "plugins.importexport.crossref.action.register"
 msgstr "Deponer"
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings.form.depositorName.description"
 msgstr ""
-"Navn på organisasjonen som registrerer DOI-ene. Det inngår i deponerte "
+"Navn på organisasjonen som registrerer DOI-ene. Dette inkluderes i deponerte "
 "metadata og brukes til å registrere hvem som utførte deponeringen."
 
-#, fuzzy
 msgid "plugins.importexport.crossref.settings.form.depositorEmail.description"
 msgstr ""
 "E-postadressen til den personen som er ansvarlig for å registrere innhold "
-"hos Crossref. Den inngår i de innsendte metadataene og brukes når man sender "
-"e-postbekreftelsen på deponeringen."
+"hos Crossref. Den inkluderes i de innsendte metadataene og brukes til å "
+"sende e-postbekreftelsen på deponeringen."
 
 msgid "plugins.generic.crossref.registrationAgency.name"
 msgstr "Crossref"
 
-#, fuzzy
 msgid "plugins.generic.crossref.successMessage"
 msgstr ""
 "Metadata for dette elementet har blitt deponert hos Crossref. For å se "
@@ -88,4 +82,81 @@ msgstr ""
 "adminpanel</a>."
 
 msgid "plugins.importexport.crossref.displayName"
-msgstr "Programutvidelse for Crossref XML-eksport"
+msgstr "Crossref XML eksport-programtillegg"
+
+msgid "plugins.importexport.crossref.settings.form.usernameRequired"
+msgstr "Skriv inn brukernavnet du fikk fra Crossref."
+
+msgid "plugins.importexport.crossref.senderTask.name"
+msgstr "Crossrefs automatiske registreringsjobb"
+
+msgid "plugins.importexport.crossref.status.registered"
+msgstr "Aktiv"
+
+msgid "plugins.importexport.crossref.status.markedRegistered"
+msgstr "Merket aktiv"
+
+msgid "plugins.importexport.crossref.statusLegend"
+msgstr ""
+"\n"
+"\t\t<p>Deponeringsstatus:</p>\n"
+"\t\t<p>\n"
+"\t\t- Ikke deponert: ingen forsøk på å deponere denne DOI-en har blitt "
+"gjort.<br />\n"
+"\t\t- Aktiv: DOI-en har blitt deponert, er aktiv og har en fungerende "
+"peker.<br />\n"
+"\t\t- Feilet: DOI-deponeringen har feilet.<br />\n"
+"\t\t- Markert aktiv: DOI-en ble manuelt markert som aktiv.\n"
+"\t\t</p>\n"
+"\t\t<p>Kun status ved siste deponeringsforsøk vises.</p>\n"
+"\t\t<p>Hvis en deponering har feilet, forsøk å løs problemet og registrer "
+"DOI-en på nytt.</p>"
+
+msgid "plugins.importexport.crossref.action.markRegistered"
+msgstr "Marker aktiv"
+
+msgid "plugins.importexport.crossref.register.success.warning"
+msgstr ""
+"Registreringen var vellykket, men følgende advarsel ble gitt: '{$param}'."
+
+msgid "plugins.importexport.crossref.settings.form.username"
+msgstr "Brukernavn"
+
+msgid "plugins.importexport.crossref.settings.form.validation"
+msgstr ""
+"Valider XML. Bruk dette alternativet for XML-nedlasting i forbindelse med "
+"manuell DOI-registrering."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.issues.description"
+msgstr ""
+"Merk: Kun utgaver (men ikke forhåndsutgaver) vil bli vurdert for eksport/"
+"registrering her."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.status.failed"
+msgstr "Mislyktes"
+
+msgid "plugins.importexport.crossref.action.export"
+msgstr "Last ned XML"
+
+#, fuzzy
+msgid "plugins.importexport.crossref.register.error.mdsError"
+msgstr ""
+"Registreringen var ikke helt vellykket! DOI-registreringsserveren returnerte "
+"en feil."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.export.error.issueNotFound"
+msgstr "Ingen nummer samsvarte med den angitte nummer-ID-en «{$issueId}»."
+
+msgid "plugins.importexport.crossref.export.error.preprintNotFound"
+msgstr ""
+"Ingen preprint samsvarte med den angitte preprint-ID-en «{$preprintId}»."
+
+#, fuzzy
+msgid "plugins.importexport.crossref.settings.form.automaticRegistration.description"
+msgstr ""
+"OPS vil automatisk deponere tildelte DOI-er i Crossref. Vær oppmerksom på at "
+"behandlingstiden etter publisering er kort (f.eks. avhengig av cronjob-"
+"konfigurasjonen din). Du kan søke etter alle uregistrerte DOI-er."
