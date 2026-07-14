@@ -18,6 +18,7 @@ use APP\core\Application;
 use APP\core\Request;
 use APP\plugins\generic\crossref\CrossrefExportDeployment;
 use APP\publication\Publication;
+use PKP\context\Context;
 use DOMDocument;
 use PKP\core\Dispatcher;
 use PKP\i18n\LocaleConversion;
@@ -66,10 +67,16 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $bodyNode = $doc->createElementNS($deployment->getNamespace(), 'body');
         $rootNode->appendChild($bodyNode);
 
+        $doiVersioning = (bool) ($context->getData(Context::SETTING_DOI_VERSIONING) ?? true);
         foreach ($pubObjects as $pubObject) {
-            $publications = $pubObject->getData('publications')->toArray();
-            // Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
-            $publications = array_reverse($publications, true);
+            if (!$doiVersioning) {
+                $publications = [$pubObject->getCurrentPublication()];
+            } else {
+                $publications = $pubObject->getData('publications')->toArray();
+                // Use array reverse so that the latest version of the submission is first in the xml output and the DOI relations do not cause an error with Crossref
+                $publications = array_reverse($publications, true);
+            }
+
             foreach ($publications as $publication) {
                 if ($publication->getDoi() && $publication->getData('status') === PKPSubmission::STATUS_PUBLISHED) {
                     $postedContentNode = $this->createPostedContentNode($doc, $publication, $pubObject);
@@ -120,7 +127,8 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $plugin = $deployment->getPlugin();
         $headNode = $doc->createElementNS($deployment->getNamespace(), 'head');
         $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi_batch_id', htmlspecialchars($context->getData('acronym', $context->getPrimaryLocale()) . '_' . time(), ENT_COMPAT, 'UTF-8')));
-        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'timestamp', date('YmdHisv')));
+        $timestamp = (new \DateTime())->format('YmdHisv');
+        $headNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'timestamp', $timestamp));
         $depositorNode = $doc->createElementNS($deployment->getNamespace(), 'depositor');
         $depositorName = $plugin->getSetting($context->getId(), 'depositorName');
         if (empty($depositorName)) {
