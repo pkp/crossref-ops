@@ -24,6 +24,7 @@ use DOMElement;
 use PKP\author\contributorRole\ContributorRoleIdentifier;
 use PKP\author\contributorRole\ContributorType;
 use PKP\core\Dispatcher;
+use PKP\dataCitation\DataCitation;
 use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
 
@@ -203,17 +204,8 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $parentDoi = $submission->getCurrentPublication()->getDoi() && $submission->getCurrentPublication()->getDoi() != $publication->getDoi() ? $submission->getCurrentPublication()->getDoi() : '';
         $vorDoi = $publication->getData('vorDoi') ? $publication->getData('vorDoi') : '';
 
-        if ($parentDoi || $vorDoi) {
-            $relationsDataNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:program');
-            $relationsDataNode->setAttribute('name', 'relations');
-            if ($parentDoi) {
-                $relationsDataNode->appendChild($this->createParentDoiNode($doc, $parentDoi));
-            }
-            if ($vorDoi) {
-                $relationsDataNode->appendChild($this->createVorDoiNode($doc, $vorDoi));
-            }
-            $postedContentNode->appendChild($relationsDataNode);
-        }
+        // rel:program — DOI versioning relations and data citation relations
+        $this->appendRelationships($doc, $postedContentNode, $parentDoi, $vorDoi, $publication);
 
         // DOI data
         $dispatcher = $this->_getDispatcher($request);
@@ -406,6 +398,75 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $doiDataNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'doi', htmlspecialchars($doi, ENT_COMPAT, 'UTF-8')));
         $doiDataNode->appendChild($doc->createElementNS($deployment->getNamespace(), 'resource', htmlspecialchars($url, ENT_COMPAT, 'UTF-8')));
         return $doiDataNode;
+    }
+
+    /**
+     * Create relationships to the parent/VOR DOI (versioning) and to cited data citations
+     */
+    public function appendRelationships(DOMDocument $doc, DOMElement $parentNode, string $parentDoi, string $vorDoi, Publication $publication): void
+    {
+        /** @var CrossrefExportDeployment $deployment */
+        $deployment = $this->getDeployment();
+
+        $relationsDataNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:program');
+        $relationsDataNode->setAttribute('name', 'relations');
+
+        if ($parentDoi) {
+            $relationsDataNode->appendChild($this->createParentDoiNode($doc, $parentDoi));
+        }
+        if ($vorDoi) {
+            $relationsDataNode->appendChild($this->createVorDoiNode($doc, $vorDoi));
+        }
+
+        foreach ($publication->getData('dataCitations') ?? [] as $dataCitation) {
+            $relatedItemNode = $this->createDataCitationRelatedItemNode($doc, $dataCitation);
+            if ($relatedItemNode) {
+                $relationsDataNode->appendChild($relatedItemNode);
+            }
+        }
+
+        if ($relationsDataNode->hasChildNodes()) {
+            $parentNode->appendChild($relationsDataNode);
+        }
+    }
+
+    /**
+     * Create a rel:related_item node for a data citation
+     */
+    public function createDataCitationRelatedItemNode(DOMDocument $doc, DataCitation $dataCitation): ?DOMElement
+    {
+        /** @var CrossrefExportDeployment $deployment */
+        $deployment = $this->getDeployment();
+
+        // Only include data citations that have an identifier (DOI, URL, etc.) and a relationship type
+        if (($identifier = $dataCitation->getAttribute('identifier')) && ($identifierType = $dataCitation->getAttribute('identifierType'))) {
+            $identifierType = strtolower($identifierType);
+        } elseif ($identifier = $dataCitation->getAttribute('url')) {
+            $identifierType = 'uri';
+        } else {
+            return null;
+        }
+
+        // Mapping based on JATS4R recommendation (https://jats4r.niso.org/data-citations)
+        $relationshipTypeMapping = [
+            'supporting' => 'references',
+            'generated' => 'isSupplementedBy',
+            'analyzed' => 'references',
+            'non-analyzed' => 'references',
+        ];
+        $relationshipType = $relationshipTypeMapping[$dataCitation->getAttribute('relationshipType')] ?? 'references';
+
+        $relatedItemNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:related_item');
+        if ($title = $dataCitation->getAttribute('title')) {
+            $descriptionNode = $doc->createElementNS($deployment->getRELNamespace(), 'rel:description', htmlspecialchars($title, ENT_COMPAT, 'UTF-8'));
+            $relatedItemNode->appendChild($descriptionNode);
+        }
+        $interWorkRel = $doc->createElementNS($deployment->getRELNamespace(), 'rel:inter_work_relation', htmlspecialchars($identifier, ENT_COMPAT, 'UTF-8'));
+        $interWorkRel->setAttribute('relationship-type', $relationshipType);
+        $interWorkRel->setAttribute('identifier-type', $identifierType);
+        $relatedItemNode->appendChild($interWorkRel);
+
+        return $relatedItemNode;
     }
 
     /**
