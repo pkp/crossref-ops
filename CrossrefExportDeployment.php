@@ -27,6 +27,7 @@ class CrossrefExportDeployment
     public const CROSSREF_XMLNS_JATS = 'http://www.ncbi.nlm.nih.gov/JATS1';
     public const CROSSREF_XMLNS_AI = 'http://www.crossref.org/AccessIndicators.xsd';
     public const CROSSREF_XMLNS_REL = 'http://www.crossref.org/relations.xsd';
+    public const CROSSREF_XMLNS_FR = 'http://www.crossref.org/fundref.xsd';
     public const CROSSREF_XMLNS_XML = 'http://www.w3.org/XML/1998/namespace';
 
     /** @var Context The current import/export context */
@@ -123,6 +124,16 @@ class CrossrefExportDeployment
     public function getAINamespace()
     {
         return static::CROSSREF_XMLNS_AI;
+    }
+
+    /**
+     * Get the FundRef namespace URN
+     *
+     * @return string
+     */
+    public function getFundrefNamespace()
+    {
+        return static::CROSSREF_XMLNS_FR;
     }
 
     /**

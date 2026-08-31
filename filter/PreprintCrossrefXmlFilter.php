@@ -19,6 +19,7 @@ use APP\core\Application;
 use APP\core\Request;
 use APP\plugins\generic\crossref\CrossrefExportDeployment;
 use APP\publication\Publication;
+use APP\submission\Submission;
 use DOMDocument;
 use DOMElement;
 use PKP\author\contributorRole\ContributorRoleIdentifier;
@@ -47,7 +48,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
     /**
      * @see Filter::process()
      *
-     * @param array $pubObjects Array of Issues or Submissions
+     * @param array $pubObjects Array of Submissions
      *
      * @return \DOMDocument
      */
@@ -105,6 +106,7 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:jats', $deployment->getJATSNamespace());
         $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:ai', $deployment->getAINamespace());
         $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:rel', $deployment->getRELNamespace());
+        $rootNode->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:fr', $deployment->getFundrefNamespace());
         $rootNode->setAttribute('version', $deployment->getXmlSchemaVersion());
         $rootNode->setAttribute('xsi:schemaLocation', $deployment->getNamespace() . ' ' . $deployment->getSchemaFilename());
         return $rootNode;
@@ -191,6 +193,9 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
             $abstractNode->appendChild($doc->createElementNS($deployment->getJATSNamespace(), 'jats:p', htmlspecialchars(html_entity_decode(strip_tags($abstract), ENT_COMPAT, 'UTF-8'), ENT_COMPAT, 'utf-8')));
             $postedContentNode->appendChild($abstractNode);
         }
+
+        // fr:program (FundRef)
+        $this->appendFundrefNode($doc, $postedContentNode, $submission);
 
         // license
         if ($publication->getData('licenseUrl')) {
@@ -356,6 +361,83 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         }
         if ($affiliationsNode) {
             $parentNode->appendChild($affiliationsNode);
+        }
+    }
+
+    /**
+     * Append fr:program (FundRef) node with funding information
+     */
+    public function appendFundrefNode(DOMDocument $doc, DOMElement $parentNode, Submission $submission): void
+    {
+        /** @var CrossrefExportDeployment $deployment */
+        $deployment = $this->getDeployment();
+
+        $funders = $submission->getData('funders');
+
+        if ($funders->isEmpty()) {
+            return;
+        }
+
+        $locale = $submission->getData('locale');
+
+        $programNode = $doc->createElementNS($deployment->getFundrefNamespace(), 'fr:program');
+        $programNode->setAttribute('name', 'fundref');
+
+        foreach ($funders as $funder) {
+            $groupNode = $doc->createElementNS($deployment->getFundrefNamespace(), 'fr:assertion');
+            $groupNode->setAttribute('name', 'fundgroup');
+
+            $funderName = $funder->getLocalizedData('name', $locale);
+
+            $rorNode = null;
+            if (!empty($funder->ror)) {
+                $rorNode = $doc->createElementNS($deployment->getFundrefNamespace(), 'fr:assertion', $funder->ror);
+                $rorNode->setAttribute('name', 'ror');
+            }
+
+            if (!empty($funderName)) {
+                $funderNameNode = $doc->createElementNS($deployment->getFundrefNamespace(), 'fr:assertion', htmlspecialchars($funderName, ENT_COMPAT, 'UTF-8'));
+                $funderNameNode->setAttribute('name', 'funder_name');
+                if ($rorNode) {
+                    $funderNameNode->appendChild($rorNode);
+                }
+                $groupNode->appendChild($funderNameNode);
+            } elseif ($rorNode) {
+                $groupNode->appendChild($rorNode);
+            }
+
+            if (!empty($funder->grants)) {
+                foreach ($funder->grants as $grant) {
+                    $awardNode = null;
+                    if (!empty($grant['grantNumber'])) {
+                        $awardNode = $doc->createElementNS($deployment->getFundrefNamespace(), 'fr:assertion', htmlspecialchars($grant['grantNumber'], ENT_COMPAT, 'UTF-8'));
+                        $awardNode->setAttribute('name', 'award_number');
+                    }
+
+                    if (!empty($grant['grantDoi'])) {
+                        $grantDoiNode = $doc->createElementNS($deployment->getFundrefNamespace(), 'fr:assertion', htmlspecialchars($grant['grantDoi'], ENT_COMPAT, 'UTF-8'));
+                        $grantDoiNode->setAttribute('name', 'grant_doi');
+
+                        if ($awardNode) {
+                            $grantDoiNode->appendChild($awardNode);
+                        }
+
+                        $groupNode->appendChild($grantDoiNode);
+
+                    } elseif ($awardNode) {
+                        $groupNode->appendChild($awardNode);
+                    }
+                }
+            }
+
+            if ($groupNode->hasChildNodes()) {
+                $programNode->appendChild($groupNode);
+            }
+
+        }
+
+        if ($programNode->hasChildNodes()) {
+            $parentNode->appendChild($programNode);
         }
     }
 
