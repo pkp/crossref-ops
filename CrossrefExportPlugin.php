@@ -227,7 +227,8 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
             if (!$result) {
                 $errorsOccurred = true;
             }
-            if (is_array($result)) {
+            // Warnings are returned as an array too, but the DOI is registered
+            if (is_array($result) && !$this->isWarningResult($result)) {
                 $resultErrors[] = $result;
             }
             // Remove all temporary files.
@@ -304,7 +305,8 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
             if (!$result) {
                 $errorsOccurred = true;
             }
-            if (is_array($result)) {
+            // Warnings are returned as an array too, but the DOI is registered
+            if (is_array($result) && !$this->isWarningResult($result)) {
                 $resultErrors[] = $result;
             }
             $fileManager->deleteByPath($exportFileName);
@@ -440,6 +442,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
             $warningCount = (int) $warningCountNode->nodeValue;
             if ($warningCount > 0) {
                 $result = [['plugins.importexport.crossref.register.success.warning', htmlspecialchars($response->getBody())]];
+                $successMessage .= PHP_EOL . __('plugins.importexport.crossref.register.success.warnings');
             }
             // A possibility for other plugins (e.g. reference linking) to work with the response
             Hook::call('crossrefexportplugin::deposited', [$this, $response->getBody(), $object]);
@@ -539,6 +542,14 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     public function getDepositSuccessNotificationMessageKey()
     {
         return 'plugins.importexport.common.register.success';
+    }
+
+    /**
+     * Check if the depositXML() result only contains the success-with-warning message
+     */
+    private function isWarningResult(array $result): bool
+    {
+        return count($result) === 1 && ($result[0][0] ?? null) === 'plugins.importexport.crossref.register.success.warning';
     }
 
     /**
