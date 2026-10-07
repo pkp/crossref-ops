@@ -469,7 +469,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     public function updateDepositStatus($context, $object, $status, $batchId = null, $failedMsg = null, $successMsg = null)
     {
         assert($object instanceof Submission);
-        $doiIds = Repo::doi()->getDoisForSubmission($object->getId());
+        $doiIds = Repo::doi()->getPublishedDoisForSubmission($object->getId());
 
         foreach ($doiIds as $doiId) {
             $doi = Repo::doi()->get($doiId);
@@ -497,7 +497,7 @@ class CrossrefExportPlugin extends DOIPubIdExportPlugin
     {
         foreach ($objects as $object) {
             // Get all DOIs for each object
-            $doiIds = Repo::doi()->getDoisForSubmission($object->getId());
+            $doiIds = Repo::doi()->getPublishedDoisForSubmission($object->getId());
 
             foreach ($doiIds as $doiId) {
                 Repo::doi()->markRegistered($doiId);
