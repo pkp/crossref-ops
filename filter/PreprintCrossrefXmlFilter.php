@@ -25,6 +25,7 @@ use DOMElement;
 use PKP\author\contributorRole\ContributorRoleIdentifier;
 use PKP\author\contributorRole\ContributorType;
 use PKP\core\Dispatcher;
+use PKP\core\PKPString;
 use PKP\dataCitation\DataCitation;
 use PKP\i18n\LocaleConversion;
 use PKP\submission\PKPSubmission;
@@ -175,10 +176,10 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         // Titles
         $titlesNode = $doc->createElementNS($deployment->getNamespace(), 'titles');
         $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'title'));
-        $node->appendChild($doc->createTextNode($publication->getLocalizedTitle($submission->getData('locale'), 'html')));
+        $this->appendFaceMarkup($doc, $node, $publication->getLocalizedTitle($submission->getData('locale'), 'html'));
         if ($subtitle = $publication->getLocalizedSubTitle($submission->getData('locale'), 'html')) {
             $titlesNode->appendChild($node = $doc->createElementNS($deployment->getNamespace(), 'subtitle'));
-            $node->appendChild($doc->createTextNode($publication->getLocalizedTitle($subtitle, 'html')));
+            $this->appendFaceMarkup($doc, $node, $subtitle);
         }
         $postedContentNode->appendChild($titlesNode);
 
@@ -606,5 +607,49 @@ class PreprintCrossrefXmlFilter extends \PKP\plugins\importexport\native\filter\
         }
 
         return $dispatcher;
+    }
+
+    /**
+     * Append stored HTML (e.g. a publication title) to a node, keeping the tags Crossref accepts as face markup.
+     */
+    public function appendFaceMarkup(DOMDocument $doc, DOMElement $parent, string $html): void
+    {
+        if ($html === '') {
+            return;
+        }
+        $source = new DOMDocument();
+        $previous = libxml_use_internal_errors(true);
+        $source->loadHTML('<?xml encoding="UTF-8"><body>' . PKPString::stripUnsafeHtml($html) . '</body>', LIBXML_NONET);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+        $body = $source->getElementsByTagName('body')->item(0);
+        if ($body) {
+            $this->copyFaceMarkup($doc, $parent, $body);
+        }
+    }
+
+    /**
+     * Copy the children of an HTML node into a Crossref node: face markup is kept, other tags are dropped and their text kept.
+     */
+    private function copyFaceMarkup(DOMDocument $doc, DOMElement $parent, \DOMNode $from): void
+    {
+        /** @var CrossrefExportDeployment $deployment */
+        $deployment = $this->getDeployment();
+        $faces = ['b', 'strong', 'i', 'em', 'u', 'sup', 'sub'];
+        foreach ($from->childNodes as $child) {
+            if ($child instanceof \DOMText) {
+                $parent->appendChild($doc->createTextNode($child->nodeValue));
+            } elseif ($child instanceof DOMElement) {
+                $name = strtolower($child->nodeName);
+                if ($name === 'br') {
+                    $parent->appendChild($doc->createTextNode(' '));
+                } elseif (in_array($name, $faces)) {
+                    $parent->appendChild($node = $doc->createElementNS($deployment->getNamespace(), $name));
+                    $this->copyFaceMarkup($doc, $node, $child);
+                } else {
+                    $this->copyFaceMarkup($doc, $parent, $child);
+                }
+            }
+        }
     }
 }
